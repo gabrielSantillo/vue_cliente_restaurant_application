@@ -14,6 +14,7 @@
 
 <script>
 import axios from "axios";
+import cookies from "vue-cookies"
 export default {
   methods: {
     /* use gabriel@ca.com
@@ -37,7 +38,7 @@ export default {
         })
         .then((response) => {
           response[`data`][`client_id`];
-          response[`data`][`token`];
+          cookies.set(`sign_in_token`, response[`data`][`token`]) ;
           this.$router.push(`/login`);
         })
         .catch((error) => {
