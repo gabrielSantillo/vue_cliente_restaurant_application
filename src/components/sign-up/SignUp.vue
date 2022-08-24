@@ -16,6 +16,8 @@
 import axios from "axios";
 export default {
   methods: {
+    /* use gabriel@ca.com
+    password 123 */
     sign_up_function() {
       axios
         .request({
