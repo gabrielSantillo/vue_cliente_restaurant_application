@@ -4,6 +4,7 @@ import SignUpPage from '@/views/SignUpPage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import MenuPage from '@/views/MenuPage.vue'
 import ProfilePage from '@/views/ProfilePage.vue'
+import DeletePage from '@/views/DeletePage.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [
   {
     path: `/profile`,
     component: ProfilePage
+  },
+
+  {
+    path: `/delete`,
+    component: DeletePage
   }
 ]
 

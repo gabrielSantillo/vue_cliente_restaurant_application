@@ -2,9 +2,11 @@
   <div>
     <div v-if="log_in_token !== null" class="menu_div">
       <h1>Welcome to the menu</h1>
-      <log-out></log-out>
-      <button @click="leave_to_profile">Profile</button>
+      <button @click="log_out_function">Log Out</button>
+      <router-link to="/profile">Edit Profile</router-link>
+      <router-link to="/delete">Delete Profile</router-link>
     </div>
+
     <div v-if="log_in_token === null">
       <h2>You must log in first.</h2>
       <router-link to="/login">Log In</router-link>
@@ -14,13 +16,12 @@
 
 <script>
 import cookies from "vue-cookies";
-import LogOut from '@/components/log-out/LogOut.vue';
 export default {
-  components: { LogOut },
-  methods: {
-    leave_to_profile() {
-        this.$router.push(`/profile`);
-    }
+  methods:  {
+    log_out_function() {
+      cookies.remove(`log_in_token`);
+      this.$router.push(`/login`);
+    },
   },
   data() {
     return {
