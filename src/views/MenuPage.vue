@@ -9,7 +9,7 @@
 
     <div v-if="log_in_token === null">
       <h2>You must log in first.</h2>
-      <router-link to="/login">Log In</router-link>
+      <router-link to="/">Log In</router-link>
     </div>
   </div>
 </template>
@@ -20,12 +20,12 @@ export default {
   methods:  {
     log_out_function() {
       cookies.remove(`log_in_token`);
-      this.$router.push(`/login`);
+      this.$router.push(`/`);
     },
   },
   data() {
     return {
-      log_in_token: null,
+      log_in_token: true,
     };
   },
   mounted() {

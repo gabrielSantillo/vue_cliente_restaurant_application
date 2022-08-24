@@ -9,7 +9,7 @@
 
     <div v-if="sign_in_cookie === null">
       <h2>It seems you don't have an account yet. Sign up first.</h2>
-      <router-link to="/">Sign Up</router-link>
+      <router-link to="/signup">Sign Up</router-link>
     </div>
   </div>
 </template>
@@ -49,7 +49,8 @@ export default {
           this.$router.push(`/menu`);
         })
         .catch((error) => {
-          error;
+          error
+          alert(`Sorry, ana error have occured. Try again.`);
         });
     },
   },
