@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import SignUpPage from '@/views/SignUpPage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import MenuPage from '@/views/MenuPage.vue'
+import ProfilePage from '@/views/ProfilePage.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ const routes = [
   {
     path: `/menu`,
     component: MenuPage
+  },
+
+  {
+    path: `/profile`,
+    component: ProfilePage
   }
 ]
 
