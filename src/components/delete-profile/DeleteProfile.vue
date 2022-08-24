@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="delete_div">
+    <div class="delete_div" v-if="log_in_token !== null">
       <h1>Delete your profile</h1>
       <input type="text" placeholder="password" ref="password" />
       <button @click="delete_profile">Delete</button>
@@ -16,6 +16,12 @@
 import cookies from "vue-cookies";
 import axios from "axios"
 export default {
+
+  data() {
+    return {
+      log_in_token: null
+    }
+  },
   mounted() {
     this.log_in_token = cookies.get(`log_in_token`);
   },
@@ -34,8 +40,13 @@ export default {
           }, 
         }).then((response) => {
             response
+            alert(`You have successfully deleted your profile`);
+            cookies.remove(`sign_in_token`);
+            cookies.remove(`log_in_token`);
+            this.$router.push(`/signup`);
         }).catch((error) => {
             error
+            alert(`Sorry, an error have occured. Please try again.`)
         })
     }
   },

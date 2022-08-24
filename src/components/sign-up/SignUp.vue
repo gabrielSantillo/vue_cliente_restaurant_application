@@ -39,7 +39,7 @@ export default {
         .then((response) => {
           response[`data`][`client_id`];
           cookies.set(`sign_in_token`, response[`data`][`token`]) ;
-          this.$router.push(`/`);
+          this.$router.push(`/login`);
         })
         .catch((error) => {
           error
