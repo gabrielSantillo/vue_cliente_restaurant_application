@@ -1,13 +1,11 @@
 <template>
     <div>
-        <sign-up></sign-up>
+        <h1>login</h1>
     </div>
 </template>
 
 <script>
-import SignUp from '@/components/sign-up/SignUp.vue'
     export default {
-  components: { SignUp },
         
     }
 </script>
