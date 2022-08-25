@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DeleteProfile from '@/components/delete-profile/DeleteProfile.vue'
+import DeleteProfile from '@/components/customer/DeleteProfile.vue'
 
    export default {
   components: { DeleteProfile },

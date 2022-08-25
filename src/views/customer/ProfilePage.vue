@@ -14,7 +14,7 @@
 <script>
 import cookies from "vue-cookies";
 
-import EditProfile from "@/components/edit-profile/EditProfile.vue";
+import EditProfile from "@/components/customer/EditProfile.vue";
 export default {
   components: { EditProfile },
   data() {
