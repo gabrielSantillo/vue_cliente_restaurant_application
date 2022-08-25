@@ -1,6 +1,8 @@
 <template>
     <div>
+        <button>Edit Profile</button>
 
+        
     </div>
 </template>
 
@@ -10,6 +12,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

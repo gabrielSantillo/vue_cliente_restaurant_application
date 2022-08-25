@@ -9,7 +9,7 @@ import HomePage from '@/views/HomePage.vue'
 import SignUpPageRestaurant from '@/views/restaurant/SignUpPageRestaurant.vue'
 import DeletePageRestaurant from '@/views/restaurant/DeletePageRestaurant.vue'
 import LoginPageRestaurant from '@/views/restaurant/LoginPageRestaurant.vue'
-import MenuPageRestaurant from '@/views/restaurant/MenuPageRestaurant'
+import DashboardPageRestaurant from '@/views/restaurant/DashboardPageRestaurant'
 import ProfilePageRestaurant from '@/views/restaurant/ProfilePageRestaurant'
 
 Vue.use(VueRouter)
@@ -61,8 +61,8 @@ const routes = [
   },
 
   {
-    path: `/menu-restaurant`,
-    component: MenuPageRestaurant
+    path: `/dashboard-restaurant`,
+    component: DashboardPageRestaurant
   },
 
   {
