@@ -46,27 +46,27 @@ const routes = [
   },
 
   {
-    path: `signup-restaurant`,
+    path: `/signup-restaurant`,
     component: SignUpPageRestaurant
   },
 
   {
-    path: `delete-restaurant`,
+    path: `/delete-restaurant`,
     component: DeletePageRestaurant
   },
 
   {
-    path: `login-restaurant`,
+    path: `/login-restaurant`,
     component: LoginPageRestaurant
   },
 
   {
-    path: `menu-restaurant`,
+    path: `/menu-restaurant`,
     component: MenuPageRestaurant
   },
 
   {
-    path: `profile-restaurant`,
+    path: `/profile-restaurant`,
     component: ProfilePageRestaurant
   }
 ]
