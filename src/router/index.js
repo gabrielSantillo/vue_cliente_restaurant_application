@@ -1,14 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import SignUpPage from '@/views/SignUpPage.vue'
-import LoginPage from '@/views/LoginPage.vue'
-import MenuPage from '@/views/MenuPage.vue'
-import ProfilePage from '@/views/ProfilePage.vue'
-import DeletePage from '@/views/DeletePage.vue'
+import SignUpPage from '@/views/customer/SignUpPage.vue'
+import LoginPage from '@/views/customer/LoginPage.vue'
+import MenuPage from '@/views/customer/MenuPage.vue'
+import ProfilePage from '@/views/customer/ProfilePage.vue'
+import DeletePage from '@/views/customer/DeletePage.vue'
+import HomePage from '@/views/HomePage.vue'
+import SignUpPageRestaurant from '@/views/restaurant/SignUpPageRestaurant.vue'
+import DeletePageRestaurant from '@/views/restaurant/DeletePageRestaurant.vue'
+import LoginPageRestaurant from '@/views/restaurant/LoginPageRestaurant.vue'
+import MenuPageRestaurant from '@/views/restaurant/MenuPageRestaurant'
+import ProfilePageRestaurant from '@/views/restaurant/ProfilePageRestaurant'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: `/`,
+    component: HomePage
+  },
+
   {
     path: `/signup`,
     component: SignUpPage
@@ -32,6 +43,31 @@ const routes = [
   {
     path: `/delete`,
     component: DeletePage
+  },
+
+  {
+    path: `signup-restaurant`,
+    component: SignUpPageRestaurant
+  },
+
+  {
+    path: `delete-restaurant`,
+    component: DeletePageRestaurant
+  },
+
+  {
+    path: `login-restaurant`,
+    component: LoginPageRestaurant
+  },
+
+  {
+    path: `menu-restaurant`,
+    component: MenuPageRestaurant
+  },
+
+  {
+    path: `profile-restaurant`,
+    component: ProfilePageRestaurant
   }
 ]
 
