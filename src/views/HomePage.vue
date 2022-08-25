@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-link to="/login">Customer</router-link>
-        <router-link>Restaurant</router-link>
+        <router-link to="/login-restaurant">Restaurant</router-link>
     </div>
 </template>
 
@@ -12,5 +12,8 @@
 </script>
 
 <style scoped>
-
+div {
+    display: grid;
+    row-gap: 20px;
+}
 </style>

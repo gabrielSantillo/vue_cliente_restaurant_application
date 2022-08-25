@@ -1,14 +1,12 @@
 <template>
   <div>
     <h2>Sign Up</h2>
-    <form>
       <input type="email" placeholder="email" ref="email" />
       <input type="text" placeholder="first name" ref="first_name" />
       <input type="text" placeholder="last name" ref="last_name" />
       <input type="text" placeholder="username" ref="username" />
       <input type="password" placeholder="password" ref="password" />
       <button @click="sign_up_function">Sign up</button>
-    </form>
   </div>
 </template>
 
