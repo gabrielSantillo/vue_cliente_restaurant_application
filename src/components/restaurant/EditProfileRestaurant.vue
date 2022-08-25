@@ -1,8 +1,6 @@
 <template>
     <div>
-        <button>Edit Profile</button>
-
-        
+        <h1>Edit your profile</h1>
     </div>
 </template>
 

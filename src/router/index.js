@@ -11,6 +11,7 @@ import DeletePageRestaurant from '@/views/restaurant/DeletePageRestaurant.vue'
 import LoginPageRestaurant from '@/views/restaurant/LoginPageRestaurant.vue'
 import DashboardPageRestaurant from '@/views/restaurant/DashboardPageRestaurant'
 import ProfilePageRestaurant from '@/views/restaurant/ProfilePageRestaurant'
+import AddItemsRestaurant from '@/views/restaurant/AddItemsRestaurant.vue'
 
 Vue.use(VueRouter)
 
@@ -68,6 +69,11 @@ const routes = [
   {
     path: `/profile-restaurant`,
     component: ProfilePageRestaurant
+  },
+
+  {
+    path: `/add-items`,
+    component: AddItemsRestaurant
   }
 ]
 
