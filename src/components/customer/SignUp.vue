@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sign_up">
     <h2>Sign Up</h2>
       <input type="email" placeholder="email" ref="email" />
       <input type="text" placeholder="first name" ref="first_name" />
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style style scoped lang="scss">
-form {
+.sign_up {
   display: grid;
   width: 120px;
   row-gap: 10px;

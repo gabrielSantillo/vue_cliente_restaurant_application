@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.sign_in_token = cookies.get(`sign_in_cookie`);
+    this.sign_in_token = cookies.get(`sign_in_token`);
   },
   methods: {
     /* use gabriel@gabriel.com

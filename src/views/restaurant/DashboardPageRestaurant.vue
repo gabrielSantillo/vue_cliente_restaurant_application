@@ -6,6 +6,7 @@
       <router-link to="/profile-restaurant">Edit Profile</router-link>
       <router-link to="/delete-restaurant">Delete Profile</router-link>
     </div>
+    
   </div>
 </template>
 

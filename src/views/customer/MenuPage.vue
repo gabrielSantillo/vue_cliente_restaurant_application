@@ -1,10 +1,15 @@
 <template>
   <div>
-    <div v-if="log_in_token !== null" class="menu_div">
-      <h1>Welcome to the menu</h1>
-      <button @click="log_out_function">Log Out</button>
-      <router-link to="/profile">Edit Profile</router-link>
-      <router-link to="/delete">Delete Profile</router-link>
+    <div v-if="log_in_token !== null">
+      <div class="header_div">
+        <h1>Welcome to the menu</h1>
+        <button @click="log_out_function">Log Out</button>
+        <router-link to="/profile">Edit Profile</router-link>
+        <router-link to="/delete">Delete Profile</router-link>
+      </div>
+      <div class="menu_items">
+        <menu-items></menu-items>
+      </div>
     </div>
 
     <div v-if="log_in_token === null">
@@ -16,8 +21,10 @@
 
 <script>
 import cookies from "vue-cookies";
+import MenuItems from '@/components/customer/MenuItems.vue';
 export default {
-  methods:  {
+  components: { MenuItems },
+  methods: {
     log_out_function() {
       cookies.remove(`log_in_token`);
       this.$router.push(`/`);
@@ -35,7 +42,7 @@ export default {
 </script>
 
 <style style scoped lang="scss">
-.menu_div {
+.header_div {
   display: grid;
   grid-auto-flow: column;
   place-items: center;
