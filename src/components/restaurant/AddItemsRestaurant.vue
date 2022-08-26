@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <h1>Add Item</h1>
+  <div class="container">
+    <h1 class="title">Add Item</h1>
     <section>
       <input type="text" placeholder="Description" ref="description" />
       <input type="url" placeholder="image url of the product" ref="img_url" />
       <input type="text" placeholder="name" ref="name" />
       <input type="number" placeholder="price" ref="price" />
-      <button @click="add_item">Add item</button>
+      <div>
+        <button @click="add_item">Add item</button>
+      </div>
     </section>
 
     <div v-if="log_in_token === null">
@@ -39,7 +41,8 @@ export default {
         })
         .then((response) => {
           response;
-          alert(`You have added ${this.$refs[`name`]} to your list of items.`);
+          alert(`You have added ${this.$refs[`name`][`value`]} to your list of items.`);
+          location.reload();
         })
         .catch((error) => {
           error;
@@ -60,4 +63,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+    display: grid;
+    place-items: center;
+}
+
+section {
+  display: grid;
+  place-items: center;
+  row-gap: 10px;
+  > input {
+    width: 15%;
+    min-width: 200px;
+  }
+}
+</style>
