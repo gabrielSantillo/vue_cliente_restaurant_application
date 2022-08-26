@@ -11,6 +11,10 @@
       </div>
     </section>
 
+    <section class="home">
+      <router-link to="/dashboard-restaurant">Home</router-link>
+    </section>
+
     <div v-if="log_in_token === null">
       <h2>It seems you are not logged in. Log up first.</h2>
       <router-link to="/login-restaurant">Sign Up</router-link>
@@ -77,5 +81,9 @@ section {
     width: 15%;
     min-width: 200px;
   }
+}
+
+.home {
+  margin-top: 50px;
 }
 </style>
