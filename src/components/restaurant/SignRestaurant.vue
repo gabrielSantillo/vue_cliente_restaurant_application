@@ -46,7 +46,7 @@ export default {
             password: this.$refs[`password`][`value`],
         }
       }).then((response) => {
-        response[`data`][`restaurantId`];
+        cookies.set(`restaurant_id`, response[`data`][`restaurantId`]);
         cookies.set(`sign_in_token_restaurant`, response[`data`][`token`]);
         this.$router.push(`/login-restaurant`);
         

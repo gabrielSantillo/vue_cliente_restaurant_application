@@ -6,14 +6,29 @@
       <router-link to="/profile-restaurant">Edit Profile</router-link>
       <router-link to="/delete-restaurant">Delete Profile</router-link>
     </div>
-    
+
+    <section>
+      <div class="restaurant_profile">
+        <display-restaurant-info></display-restaurant-info>
+      </div>
+
+      <div class="restaurant_items">
+        <display-restaurant-items></display-restaurant-items>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 import DashboardRestaurant from "@/components/restaurant/DashboardRestaurant.vue";
+import DisplayRestaurantInfo from "@/components/display-restaurant/DisplayRestaurantInfo.vue";
+import DisplayRestaurantItems from "@/components/display-restaurant/DisplayRestaurantItems.vue";
 export default {
-  components: { DashboardRestaurant },
+  components: {
+    DashboardRestaurant,
+    DisplayRestaurantInfo,
+    DisplayRestaurantItems,
+  },
 };
 </script>
 
@@ -23,5 +38,11 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
   margin-top: 50px;
+}
+
+section {
+  margin-top: 100px;
+  place-items: center;
+  display: grid;
 }
 </style>

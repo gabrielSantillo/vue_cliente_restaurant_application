@@ -17,10 +17,11 @@
 <script>
 import cookies from "vue-cookies";
 
+
 export default {
   data() {
     return {
-      log_in_token: null,
+      log_in_token: null
     };
   },
   mounted() {
