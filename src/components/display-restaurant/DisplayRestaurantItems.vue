@@ -8,9 +8,9 @@
         <p>{{ food[`description`] }}</p>
         <p>CAD$ {{ food[`price`] }}</p>
         <div>
-          <edit-items></edit-items>
+          <router-link to="/edit-item">Edit Item</router-link>
           <button @click="delete_item" :food_id="food[`id`]">
-            Delete Items
+            Delete Item
           </button>
         </div>
       </div>
@@ -21,9 +21,7 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-import EditItems from "./EditItems.vue";
 export default {
-  components: { EditItems },
   methods: {
     delete_item(details) {
       axios
