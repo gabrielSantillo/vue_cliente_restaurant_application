@@ -9,7 +9,7 @@
         <p>CAD$ {{ food[`price`] }}</p>
         <div>
             <edit-items></edit-items>
-            <button @click="delete_item(index, $event)">Delete Items</button>
+            <button @click="delete_item(index, $event)" :food_id="food[`id`]">Delete Items</button>
         </div>
         
       </div>
@@ -26,13 +26,13 @@ export default {
     methods: {
         delete_item(index) {
             this.foods.splice(index, 1);
-            
         }
     },
 
   data() {
     return {
       foods: [],
+      food_id: undefined
     };
   },
   mounted() {
