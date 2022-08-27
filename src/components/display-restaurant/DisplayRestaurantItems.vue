@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Restaurant Items</h1>
-    <section v-for="food in foods" :key="food[`id`]" class="items_card">
+    <section v-for="(food, index) in foods" :key="index" class="items_card">
       <div>
         <img :src="food[`image_url`]" alt="" />
         <h4>{{ food[`name`] }}</h4>
@@ -9,7 +9,7 @@
         <p>CAD$ {{ food[`price`] }}</p>
         <div>
             <edit-items></edit-items>
-            <delete-items></delete-items>
+            <button @click="delete_item(index, $event)">Delete Items</button>
         </div>
         
       </div>
@@ -20,10 +20,16 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-import DeleteItems from "./DeleteItems.vue";
 import EditItems from './EditItems.vue';
 export default {
-  components: { DeleteItems, EditItems },
+  components: { EditItems },
+    methods: {
+        delete_item(index) {
+            this.foods.splice(index, 1);
+            
+        }
+    },
+
   data() {
     return {
       foods: [],
