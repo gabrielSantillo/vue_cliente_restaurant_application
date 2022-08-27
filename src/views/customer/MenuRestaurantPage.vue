@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>OPTIONS</h1>
         <display-restaurant-menu></display-restaurant-menu>
     </div>
 </template>

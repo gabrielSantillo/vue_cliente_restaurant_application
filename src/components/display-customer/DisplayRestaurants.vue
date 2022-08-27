@@ -7,6 +7,7 @@
     >
       <div>
         <img :src="restaurant[`banner_url`]" alt="" />
+        <h3>{{restaurant[`name`]}}</h3>
         <h4>{{ restaurant[`city`] }}</h4>
         <p>{{ restaurant[`address`] }}</p>
         <button @click="menu_restaurant_page(restaurant, $event)">Menu</button>

@@ -84,7 +84,7 @@ const routes = [
   },
 
   {
-    path: `restaurant-menu-options`,
+    path: `/restaurant-menu-options`,
     component: MenuRestaurantPage
   }
 ]
