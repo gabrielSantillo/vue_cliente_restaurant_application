@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="log_in" v-if="sign_in_token !== null">
+    <div class="log_in" v-if="sign_in_token === null">
       <h1>Log In</h1>
       <input type="email" placeholder="email" ref="email" />
       <input type="password" placeholder="password" ref="password" />
@@ -16,7 +16,7 @@
 
 <script>
 import cookies from "vue-cookies";
-import axios from "axios"
+import axios from "axios";
 export default {
   methods: {
     log_in_function() {
@@ -33,9 +33,9 @@ export default {
           },
         })
         .then((response) => {
-          response[`data`][`restaurantId`];
+          cookies.set(`restaurant_id`, `${response[`data`][`restaurantId`]}`);
           cookies.set(`log_in_token_restaurant`, response[`data`][`token`]);
-          this.$router.push(`/dashboard-restaurant`)
+          this.$router.push(`/dashboard-restaurant`);
         })
         .catch((error) => {
           error;
@@ -46,6 +46,7 @@ export default {
 
   data() {
     return {
+      /** NEED TO CHANGE THIS LOGIC FOR THE USER BE ABLE TO LOG IN */
       sign_in_token: null,
     };
   },

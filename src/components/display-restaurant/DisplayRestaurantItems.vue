@@ -1,17 +1,18 @@
 <template>
   <div>
     <h1>Restaurant Items</h1>
-    <section v-for="(food, index) in foods" :key="index" class="items_card">
+    <section v-for="food in foods" :key="food[`id`]" class="items_card">
       <div>
         <img :src="food[`image_url`]" alt="" />
         <h4>{{ food[`name`] }}</h4>
         <p>{{ food[`description`] }}</p>
         <p>CAD$ {{ food[`price`] }}</p>
         <div>
-            <edit-items></edit-items>
-            <button @click="delete_item(index, $event)" :food_id="food[`id`]">Delete Items</button>
+          <edit-items></edit-items>
+          <button @click="delete_item" :food_id="food[`id`]">
+            Delete Items
+          </button>
         </div>
-        
       </div>
     </section>
   </div>
@@ -20,19 +21,38 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-import EditItems from './EditItems.vue';
+import EditItems from "./EditItems.vue";
 export default {
   components: { EditItems },
-    methods: {
-        delete_item(index) {
-            this.foods.splice(index, 1);
-        }
+  methods: {
+    delete_item(details) {
+      axios
+        .request({
+          url: `https://innotechfoodie.ml/api/menu`,
+          headers: {
+            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+            token: `${cookies.get(`log_in_token_restaurant`)}`
+          },
+          method: `DELETE`,
+          data: {
+            menu_id: `${details[`target`].getAttribute(`food_id`)}`,
+          },
+        })
+        .then((response) => {
+            response
+            location.reload();
+        })
+        .catch((error) => {
+          alert(`Sorry, an error have occured. Please reload the page.`);
+          error;
+        });
     },
+  },
 
   data() {
     return {
       foods: [],
-      food_id: undefined
+      food_id: undefined,
     };
   },
   mounted() {
@@ -85,10 +105,10 @@ export default {
     }
 
     > div {
-        display: grid;
-        grid-auto-flow: column;
-        place-items: center;
-        column-gap: 20px;
+      display: grid;
+      grid-auto-flow: column;
+      place-items: center;
+      column-gap: 20px;
     }
   }
 }
