@@ -8,7 +8,7 @@
         <p>{{ food[`description`] }}</p>
         <p>CAD$ {{ food[`price`] }}</p>
         <div>
-          <button @click="emit_food_id(food, $event)">Edit Item</button>
+          <button @click="cookie_food_id(food, $event)">Edit Item</button>
           <button @click="delete_item" :food_id="food[`id`]">
             Delete Item
           </button>
@@ -23,7 +23,7 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
-    emit_food_id(food) {
+    cookie_food_id(food) {
       let food_object_json = JSON.stringify(food);
       cookies.set(`food_id`, food_object_json);
       this.$router.push(`/edit-item`)

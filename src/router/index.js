@@ -13,6 +13,7 @@ import DashboardPageRestaurant from '@/views/restaurant/DashboardPageRestaurant'
 import ProfilePageRestaurant from '@/views/restaurant/ProfilePageRestaurant'
 import AddItemsPageRestaurant from '@/views/restaurant/AddItemsPageRestaurant.vue'
 import EditItem from '@/views/restaurant/EditItemRestaurant.vue'
+import MenuRestaurantPage from '@/views/customer/MenuRestaurantPage'
 
 Vue.use(VueRouter)
 
@@ -80,6 +81,11 @@ const routes = [
   {
     path: `/edit-item`,
     component: EditItem
+  },
+
+  {
+    path: `restaurant-menu-options`,
+    component: MenuRestaurantPage
   }
 ]
 

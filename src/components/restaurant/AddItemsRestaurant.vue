@@ -45,7 +45,11 @@ export default {
         })
         .then((response) => {
           response;
-          alert(`You have added ${this.$refs[`name`][`value`]} to your list of items.`);
+          alert(
+            `You have added ${
+              this.$refs[`name`][`value`]
+            } to your list of items.`
+          );
           location.reload();
         })
         .catch((error) => {
@@ -69,8 +73,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-    display: grid;
-    place-items: center;
+  display: grid;
+  place-items: center;
 }
 
 section {
