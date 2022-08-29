@@ -15,6 +15,7 @@ import AddItemsPageRestaurant from '@/views/restaurant/AddItemsPageRestaurant.vu
 import EditItem from '@/views/restaurant/EditItemRestaurant.vue'
 import MenuRestaurantPage from '@/views/customer/MenuRestaurantPage.vue'
 import CustomerOrderPage from '@/views/order/CustomerOrderPage.vue'
+import RestaurantOrderPage from '@/views/order/RestaurantOrderPage'
 
 Vue.use(VueRouter)
 
@@ -92,6 +93,11 @@ const routes = [
   {
     path: `/cart-order`,
     component: CustomerOrderPage
+  },
+
+  {
+    path: `/restaurant-order`,
+    component: RestaurantOrderPage
   }
 ]
 
