@@ -1,30 +1,39 @@
 <template>
   <div>
-    <div v-if="foods.length >= 1">
+    <div>
       <div class="header">
         <h1>Your Order</h1>
         <router-link to="/restaurant-menu-options">Menu</router-link>
       </div>
 
       <section class="order_card"
-      v-for="food in foods" :key="food[`id`]">
+      v-for="food in foods" :key="food[`order_id`]">
         <div>
-          <img :src="food[`image_url`]" alt="" />
-          <h4>{{ food[`name`] }}</h4>
-          <p>{{ food[`description`] }}</p>
-          <p>CAD$ {{ food[`price`] }}</p>
+          <h3>{{ food[`name`] }}</h3>
+          <h4>CAD$ {{ food[`price`] }}</h4>
+          <div v-if="food[`is_confirmed`]">
+            <p>Confirmed</p>
+          </div>
+            <div v-else>
+                <p>Not confirmed</p>
+            </div>
+          
+          <div v-if="food[`is_complete`]">
+            <p>Completed</p>
+          </div>
+            <div v-else>
+                <p>Not completed</p>
+            </div>
+          
         </div>
       </section>
     </div>
-    <div v-else class="header">
-        <h1>{{foods}}</h1>
-      <h1>Your cart is empty</h1>
-      <router-link to="/restaurant-menu-options">Menu</router-link>
-    </div>
+
   </div>
 </template>
 
 <script>
+import axios from "axios"
 import cookies from "vue-cookies";
 export default {
   data() {
@@ -34,7 +43,21 @@ export default {
   },
 
   mounted() {
-    this.foods.push(cookies.get(`food_object`));
+    axios
+        .request({
+          url: `https://innotechfoodie.ml/api/client-order`,
+          headers: {
+            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+            token: `${cookies.get(`log_in_token`)}`,
+          },
+        })
+        .then((response) => {
+          this.foods = response[`data`];
+        })
+        .catch((error) => {
+          error;
+          alert(`Sorry an error have occured. Please, refresh the page`);
+        });
   },
 };
 </script>
