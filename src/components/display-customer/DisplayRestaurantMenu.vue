@@ -36,8 +36,8 @@ import axios from "axios";
 export default {
   methods: {
     make_order(food) {
-      let food_object_json = JSON.stringify(food);
-      cookies.set(`food_object`, food_object_json);
+      this.food_object_json = JSON.stringify(food);
+      cookies.set(`food_object`, this.food_object_json);
       alert(`You've successfully completed your order`)
       
       axios
@@ -73,6 +73,7 @@ export default {
       profile_url: undefined,
       restaurant_id: undefined,
       foods: [],
+      food_object_json: []
 
     };
   },

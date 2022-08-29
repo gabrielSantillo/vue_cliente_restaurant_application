@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div v-if="food !== null">
+    <div v-if="foods.length >= 1">
       <div class="header">
         <h1>Your Order</h1>
         <router-link to="/restaurant-menu-options">Menu</router-link>
       </div>
 
-      <section class="order_card">
+      <section class="order_card"
+      v-for="food in foods" :key="food[`id`]">
         <div>
           <img :src="food[`image_url`]" alt="" />
           <h4>{{ food[`name`] }}</h4>
@@ -16,6 +17,7 @@
       </section>
     </div>
     <div v-else class="header">
+        <h1>{{foods}}</h1>
       <h1>Your cart is empty</h1>
       <router-link to="/restaurant-menu-options">Menu</router-link>
     </div>
@@ -27,11 +29,13 @@ import cookies from "vue-cookies";
 export default {
   data() {
     return {
-      food: cookies.get(`food_object`),
+      foods: [],
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.foods.push(cookies.get(`food_object`));
+  },
 };
 </script>
 
