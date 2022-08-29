@@ -36,20 +36,20 @@ import axios from "axios";
 export default {
   methods: {
     make_order(food) {
-      let food_object_json = [];
-      food_object_json = JSON.stringify(food);
+      let food_object_json = JSON.stringify(food);
       cookies.set(`food_object`, food_object_json);
       alert(`You've successfully completed your order`)
-  
+      
       axios
       .request({
         url: `https://innotechfoodie.ml/api/client-order`,
         headers: {
           "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+          token: `${cookies.get(`log_in_token`)}`,
         },
         method: `POST`,
         data: {
-          menu_items: food[`id`],
+          menu_items: `${food[`id`]}`,
           restaurant_id: `${this.restaurant_id}`,
         },
       })
