@@ -1,18 +1,24 @@
 <template>
-  <div v-if="food !== null">
-    <div class="header">
-      <h1>Your Order</h1>
+  <div>
+    <div v-if="food !== null">
+      <div class="header">
+        <h1>Your Order</h1>
+        <router-link to="/restaurant-menu-options">Menu</router-link>
+      </div>
+
+      <section class="order_card">
+        <div>
+          <img :src="food[`image_url`]" alt="" />
+          <h4>{{ food[`name`] }}</h4>
+          <p>{{ food[`description`] }}</p>
+          <p>CAD$ {{ food[`price`] }}</p>
+        </div>
+      </section>
+    </div>
+    <div v-else class="header">
+      <h1>Your cart is empty</h1>
       <router-link to="/restaurant-menu-options">Menu</router-link>
     </div>
-
-    <section class="order_card">
-      <div>
-        <img :src="food[`image_url`]" alt="" />
-        <h4>{{ food[`name`] }}</h4>
-        <p>{{ food[`description`] }}</p>
-        <p>CAD$ {{ food[`price`] }}</p>
-      </div>
-    </section>
   </div>
 </template>
 

@@ -40,6 +40,25 @@ export default {
       food_object_json = JSON.stringify(food);
       cookies.set(`food_object`, food_object_json);
       alert(`You've successfully completed your order`)
+  
+      axios
+      .request({
+        url: `https://innotechfoodie.ml/api/client-order`,
+        headers: {
+          "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+        },
+        method: `POST`,
+        data: {
+          menu_items: food[`id`],
+          restaurant_id: `${this.restaurant_id}`,
+        },
+      })
+      .then((response) => {
+        response
+      })
+      .catch((error) => {
+        error;
+      });
     }
   },
   data() {
