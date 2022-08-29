@@ -1,22 +1,28 @@
 <template>
   <div>
-    <h1>Restaurant</h1>
-    <div>
-      <img :src="banner_url" class="banner" />
-      <h3>{{ name }}</h3>
-      <h4>{{ city }}</h4>
-      <p>{{ bio }}</p>
-      <p>{{ phone_number }}</p>
-      <p>{{ address }}</p>
-    </div>
-
-    <section class="menu_card">
-      <div v-for="food in foods" :key="food[`id`]">
-        <img :src="food[`image_url`]" alt="" />
-        <h4>{{ food[`name`] }}</h4>
-        <p>{{ food[`description`] }}</p>
-        <p>CAD$ {{ food[`price`] }}</p>
+    <section>
+      <div class="header">
+        <h1>Restaurant</h1>
+        <router-link to="/menu">Back to Menu</router-link>
       </div>
+
+      <div>
+        <img :src="banner_url" class="banner" />
+        <h3>{{ name }}</h3>
+        <h4>{{ city }}</h4>
+        <p>{{ bio }}</p>
+        <p>{{ phone_number }}</p>
+        <p>{{ address }}</p>
+      </div>
+
+      <section class="menu_card">
+        <div v-for="food in foods" :key="food[`id`]">
+          <img :src="food[`image_url`]" alt="" />
+          <h4>{{ food[`name`] }}</h4>
+          <p>{{ food[`description`] }}</p>
+          <p>CAD$ {{ food[`price`] }}</p>
+        </div>
+      </section>
     </section>
   </div>
 </template>
@@ -37,9 +43,12 @@ export default {
       profile_url: undefined,
       restaurant_id: undefined,
       foods: [],
+      
     };
   },
   mounted() {
+
+
     let restaurant_object = cookies.get(`restaurant_object`);
     this.address = restaurant_object[`address`];
     this.banner_url = restaurant_object[`banner_url`];
@@ -89,7 +98,7 @@ export default {
     }
 
     > p {
-        width: 300px;
+      width: 300px;
     }
   }
 }
@@ -98,5 +107,12 @@ export default {
   width: 100%;
   height: 400px;
   object-fit: cover;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  place-items: center;
+  text-align: center;
 }
 </style>

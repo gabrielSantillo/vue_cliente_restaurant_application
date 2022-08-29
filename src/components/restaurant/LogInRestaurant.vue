@@ -8,7 +8,7 @@
     </div>
 
     <div v-if="sign_in_token === null">
-      <h2>It seems you don't have an account yet. Sign up first.</h2>
+      <h2>If you don't have an account yet. Sign up first.</h2>
       <router-link to="/signup-restaurant">Sign Up</router-link>
     </div>
   </div>

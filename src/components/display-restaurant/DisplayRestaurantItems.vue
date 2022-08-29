@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>Restaurant Items</h1>
+    <div>
+      <h1>Restaurant Items</h1>
+    </div>
+    
     <section v-for="food in foods" :key="food[`id`]" class="items_card">
       <div>
         <img :src="food[`image_url`]" alt="" />
