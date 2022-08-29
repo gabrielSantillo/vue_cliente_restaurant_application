@@ -13,7 +13,8 @@ import DashboardPageRestaurant from '@/views/restaurant/DashboardPageRestaurant'
 import ProfilePageRestaurant from '@/views/restaurant/ProfilePageRestaurant'
 import AddItemsPageRestaurant from '@/views/restaurant/AddItemsPageRestaurant.vue'
 import EditItem from '@/views/restaurant/EditItemRestaurant.vue'
-import MenuRestaurantPage from '@/views/customer/MenuRestaurantPage'
+import MenuRestaurantPage from '@/views/customer/MenuRestaurantPage.vue'
+import CustomerOrderPage from '@/views/order/CustomerOrderPage.vue'
 
 Vue.use(VueRouter)
 
@@ -86,6 +87,11 @@ const routes = [
   {
     path: `/restaurant-menu-options`,
     component: MenuRestaurantPage
+  },
+
+  {
+    path: `/cart-order`,
+    component: CustomerOrderPage
   }
 ]
 

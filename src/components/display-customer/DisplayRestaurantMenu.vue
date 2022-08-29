@@ -4,6 +4,7 @@
       <div class="header">
         <h1>Restaurant</h1>
         <router-link to="/menu">Back to Menu</router-link>
+        <router-link to="/cart-order">Cart</router-link>
       </div>
 
       <div>
@@ -13,6 +14,7 @@
         <p>{{ bio }}</p>
         <p>{{ phone_number }}</p>
         <p>{{ address }}</p>
+        
       </div>
 
       <section class="menu_card">
@@ -21,6 +23,7 @@
           <h4>{{ food[`name`] }}</h4>
           <p>{{ food[`description`] }}</p>
           <p>CAD$ {{ food[`price`] }}</p>
+          <button @click="make_order(food, $event)">Order</button>
         </div>
       </section>
     </section>
@@ -31,6 +34,14 @@
 import cookies from "vue-cookies";
 import axios from "axios";
 export default {
+  methods: {
+    make_order(food) {
+      let food_object_json = [];
+      food_object_json = JSON.stringify(food);
+      cookies.set(`food_object`, food_object_json);
+      alert(`You've successfully completed your order`)
+    }
+  },
   data() {
     return {
       address: undefined,
@@ -43,12 +54,10 @@ export default {
       profile_url: undefined,
       restaurant_id: undefined,
       foods: [],
-      
+
     };
   },
   mounted() {
-
-
     let restaurant_object = cookies.get(`restaurant_object`);
     this.address = restaurant_object[`address`];
     this.banner_url = restaurant_object[`banner_url`];
@@ -111,7 +120,7 @@ export default {
 
 .header {
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 5fr 1fr 1fr;
   place-items: center;
   text-align: center;
 }

@@ -6,6 +6,7 @@
         <button @click="log_out_function">Log Out</button>
         <router-link to="/profile">Edit Profile</router-link>
         <router-link to="/delete">Delete Profile</router-link>
+        <router-link to="/cart-order">Cart</router-link>
       </div>
       <div class="menu_items">
         <menu-items></menu-items>
