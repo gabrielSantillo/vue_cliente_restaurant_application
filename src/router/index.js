@@ -16,6 +16,7 @@ import EditItem from '@/views/restaurant/EditItemRestaurant.vue'
 import MenuRestaurantPage from '@/views/customer/MenuRestaurantPage.vue'
 import CustomerOrderPage from '@/views/order/CustomerOrderPage.vue'
 import RestaurantOrderPage from '@/views/order/RestaurantOrderPage'
+import OtherRestaurantsPage from '@/views/restaurant/OtherRestaurantsPage.vue'
 
 Vue.use(VueRouter)
 
@@ -98,6 +99,11 @@ const routes = [
   {
     path: `/restaurant-order`,
     component: RestaurantOrderPage
+  },
+
+  {
+    path: `/other-restaurants`,
+    component: OtherRestaurantsPage
   }
 ]
 

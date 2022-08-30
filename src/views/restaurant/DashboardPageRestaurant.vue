@@ -4,6 +4,7 @@
     <div class="dashboard_options">
       <router-link to="/restaurant-order">Orders</router-link>
       <router-link to="/add-items">Add Items</router-link>
+      <router-link to="/other-restaurants">Others Restaurants</router-link>
       <router-link to="/profile-restaurant">Edit Profile</router-link>
       <router-link to="/delete-restaurant">Delete Profile</router-link>
     </div>
@@ -36,7 +37,7 @@ export default {
 <style scoped>
 .dashboard_options {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   place-items: center;
   margin-top: 50px;
 }
