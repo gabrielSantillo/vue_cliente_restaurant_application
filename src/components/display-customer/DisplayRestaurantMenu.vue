@@ -14,7 +14,6 @@
         <p>{{ bio }}</p>
         <p>{{ phone_number }}</p>
         <p>{{ address }}</p>
-        
       </div>
 
       <section class="menu_card">
@@ -36,32 +35,11 @@ import axios from "axios";
 export default {
   methods: {
     add_to_cart(food) {
-     this.cart.push(food);
-     let cart_json = JSON.stringify(this.cart);
-     cookies.set(`selection`, cart_json);
-     cookies.set(`restaurant_id`, this.restaurant_id)
-
-      /* this axios request should be in the cart/order page 
-      axios
-      .request({
-        url: `https://innotechfoodie.ml/api/client-order`,
-        headers: {
-          "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-          token: `${cookies.get(`log_in_token`)}`,
-        },
-        method: `POST`,
-        data: {
-          menu_items: `${food[`id`]}`,
-          restaurant_id: `${this.restaurant_id}`,
-        },
-      })
-      .then((response) => {
-        response
-      })
-      .catch((error) => {
-        error;
-      });*/
-    }
+      this.cart.push(food);
+      let cart_json = JSON.stringify(this.cart);
+      cookies.set(`selection`, cart_json);
+      cookies.set(`restaurant_id`, this.restaurant_id);
+    },
   },
   data() {
     return {
@@ -76,8 +54,7 @@ export default {
       restaurant_id: undefined,
       foods: [],
       food_object_json: [],
-      cart: []
-
+      cart: [],
     };
   },
   mounted() {
