@@ -2,7 +2,7 @@
   <div>
     <dashboard-restaurant></dashboard-restaurant>
     <div class="dashboard_options">
-      <router-link to="/restaurant-order">Request</router-link>
+      <router-link to="/restaurant-order">Orders</router-link>
       <router-link to="/add-items">Add Items</router-link>
       <router-link to="/profile-restaurant">Edit Profile</router-link>
       <router-link to="/delete-restaurant">Delete Profile</router-link>

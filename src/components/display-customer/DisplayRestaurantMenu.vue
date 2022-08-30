@@ -22,7 +22,7 @@
           <h4>{{ food[`name`] }}</h4>
           <p>{{ food[`description`] }}</p>
           <p>CAD$ {{ food[`price`] }}</p>
-          <button @click="add_to_cart(food, $event)">Order</button>
+          <button @click="add_to_cart(food, $event)">Add to cart</button>
         </div>
       </section>
     </section>

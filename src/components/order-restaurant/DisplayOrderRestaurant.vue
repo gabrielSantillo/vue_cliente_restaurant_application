@@ -5,7 +5,7 @@
       <router-link to="dashboard-restaurant">Dashboard</router-link>
     </div>
 
-    <div class="orders">
+    <div class="orders" v-if="orders.length >= 1">
       <section v-for="order in orders" :key="order[`order_id`]">
         <h3>Item: {{ order[`name`] }}</h3>
         <h4>CAD$ {{ order[`price`] }}</h4>
@@ -14,6 +14,10 @@
           <button @click="complete_order(order, $event)">Complete</button>
         </div>
       </section>
+    </div>
+
+    <div v-else>
+      <h1>You have no orders yet.</h1>
     </div>
   </div>
 </template>

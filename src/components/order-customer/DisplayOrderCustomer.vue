@@ -13,7 +13,7 @@
           <h4>CAD$ {{ food[`price`] }}</h4>
           <div>
             <button @click="make_order(food, $event)">Order</button>
-            <div v-if="track_order"><button>Track Order</button></div>
+            <div v-if="track_order" @click="track_order_function(food, $event)"><button>Track Order</button></div>
           </div>
         </div>
       </section>
@@ -26,6 +26,22 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
+    track_order_function() {
+      axios
+        .request({
+          url: `https://innotechfoodie.ml/api/client-order`,
+          headers: {
+            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+            token: `${cookies.get(`log_in_token`)}`,
+          },
+        })
+        .then((response) => {
+          response[`data`];
+        })
+        .catch((error) => {
+          error;
+        });
+    },
     make_order(food) {
       axios
         .request({
