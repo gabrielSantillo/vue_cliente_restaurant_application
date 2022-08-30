@@ -7,24 +7,12 @@
       </div>
 
       <section class="order_card"
-      v-for="food in foods" :key="food[`order_id`]">
+      v-for="food in foods" :key="food[`id`]">
         <div>
+            <img :src="food[`image_url`]" >
           <h3>{{ food[`name`] }}</h3>
           <h4>CAD$ {{ food[`price`] }}</h4>
-          <div v-if="food[`is_confirmed`]">
-            <p>Confirmed</p>
-          </div>
-            <div v-else>
-                <p>Not confirmed</p>
-            </div>
-          
-          <div v-if="food[`is_complete`]">
-            <p>Completed</p>
-          </div>
-            <div v-else>
-                <p>Not completed</p>
-            </div>
-          
+          <button @click="make_order(food, $event)">Order</button>
         </div>
       </section>
     </div>
@@ -36,28 +24,38 @@
 import axios from "axios"
 import cookies from "vue-cookies";
 export default {
+    methods: {
+        make_order(food) {
+            axios
+      .request({
+        url: `https://innotechfoodie.ml/api/client-order`,
+        headers: {
+          "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+          token: `${cookies.get(`log_in_token`)}`,
+        },
+        method: `POST`,
+        data: {
+          menu_items: `${food[`id`]}`,
+          restaurant_id: `${cookies.get(`restaurant_id`)}`,
+        },
+      })
+      .then((response) => {
+        response
+      })
+      .catch((error) => {
+        error;
+      });
+        }
+    },
   data() {
     return {
-      foods: [],
+      foods: undefined,
     };
   },
 
   mounted() {
-    axios
-        .request({
-          url: `https://innotechfoodie.ml/api/client-order`,
-          headers: {
-            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token`)}`,
-          },
-        })
-        .then((response) => {
-          this.foods = response[`data`];
-        })
-        .catch((error) => {
-          error;
-          alert(`Sorry an error have occured. Please, refresh the page`);
-        });
+    let foods_json = cookies.get(`selection`);
+    this.foods = JSON.parse(foods_json);
   },
 };
 </script>
@@ -65,11 +63,8 @@ export default {
 <style lang="scss" scoped>
 .order_card {
   display: grid;
-  row-gap: 20px;
-  column-gap: 20px;
   border-radius: 5px;
   width: 100%;
-  grid-auto-flow: column;
   place-items: center;
 
   > div {

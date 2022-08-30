@@ -23,7 +23,7 @@
           <h4>{{ food[`name`] }}</h4>
           <p>{{ food[`description`] }}</p>
           <p>CAD$ {{ food[`price`] }}</p>
-          <button @click="make_order(food, $event)">Order</button>
+          <button @click="add_to_cart(food, $event)">Order</button>
         </div>
       </section>
     </section>
@@ -35,11 +35,13 @@ import cookies from "vue-cookies";
 import axios from "axios";
 export default {
   methods: {
-    make_order(food) {
-      this.food_object_json = JSON.stringify(food);
-      cookies.set(`food_object`, this.food_object_json);
-      alert(`You've successfully completed your order`)
-      
+    add_to_cart(food) {
+     this.cart.push(food);
+     let cart_json = JSON.stringify(this.cart);
+     cookies.set(`selection`, cart_json);
+     cookies.set(`restaurant_id`, this.restaurant_id)
+
+      /* this axios request should be in the cart/order page 
       axios
       .request({
         url: `https://innotechfoodie.ml/api/client-order`,
@@ -58,7 +60,7 @@ export default {
       })
       .catch((error) => {
         error;
-      });
+      });*/
     }
   },
   data() {
@@ -73,7 +75,8 @@ export default {
       profile_url: undefined,
       restaurant_id: undefined,
       foods: [],
-      food_object_json: []
+      food_object_json: [],
+      cart: []
 
     };
   },
