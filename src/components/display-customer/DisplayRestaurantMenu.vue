@@ -35,10 +35,8 @@ import axios from "axios";
 export default {
   methods: {
     add_to_cart(food) {
-      this.cart.push(food);
-      let cart_json = JSON.stringify(this.cart);
-      cookies.set(`selection`, cart_json);
-      cookies.set(`restaurant_id`, this.restaurant_id);
+      let food_json = JSON.stringify(food)
+      this.$root.$emit(`cart_food`, food_json)
     },
   },
   data() {
@@ -54,7 +52,6 @@ export default {
       restaurant_id: undefined,
       foods: [],
       food_object_json: [],
-      cart: [],
     };
   },
   mounted() {

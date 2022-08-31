@@ -1,6 +1,7 @@
 <template>
     <div>
         <display-order-customer></display-order-customer>
+        
     </div>
 </template>
 
