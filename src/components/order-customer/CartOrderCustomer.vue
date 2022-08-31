@@ -1,11 +1,13 @@
 <template>
   <div>
-    <h1>CART IS HERE</h1>
     <section class="order_card" v-for="food in foods" :key="food[`id`]">
       <div>
         <img :src="food[`image_url`]" />
         <h3>{{ food[`name`] }}</h3>
         <h4>CAD$ {{ food[`price`] }}</h4>
+        <div>
+          <button @click="make_order(food, $event)">Order</button>
+        </div>
       </div>
     </section>
   </div>
@@ -40,8 +42,7 @@ export default {
           },
         })
         .then((response) => {
-          this.order_id = response[`data`][`order_id`];
-          this.track_order = true;
+          response[`data`][`order_id`];
         })
         .catch((error) => {
           error;
@@ -51,4 +52,24 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.order_card {
+  display: grid;
+  border-radius: 5px;
+  width: 100%;
+  place-items: center;
+  margin-bottom: 25px;
+
+  > div {
+    > img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    > p {
+      width: 300px;
+    }
+  }
+}
+</style>
