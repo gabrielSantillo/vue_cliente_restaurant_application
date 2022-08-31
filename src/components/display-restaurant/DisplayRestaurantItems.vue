@@ -3,7 +3,7 @@
     <div>
       <h1>Restaurant Items</h1>
     </div>
-    
+
     <section v-for="food in foods" :key="food[`id`]" class="items_card">
       <div>
         <img :src="food[`image_url`]" alt="" />
@@ -12,10 +12,15 @@
         <p>CAD$ {{ food[`price`] }}</p>
         <div>
           <button @click="cookie_food_id(food, $event)">Edit Item</button>
-          <button @click="delete_item" :food_id="food[`id`]">
-            Delete Item
-          </button>
-        </div>
+          <button @click="delete_to_true">Delete Item</button>
+          </div>
+          <div class="confirm_delete_div" v-if="delete_variable === true">
+            <button @click="delete_item" :food_id="food[`id`]">
+              Confirm
+            </button>
+            <button @click="delete_to_false">Not delete</button>
+          </div>
+        
       </div>
     </section>
   </div>
@@ -26,10 +31,16 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
+    delete_to_true() {
+      this.delete_variable = true
+    },
+    delete_to_false() {
+      this.delete_variable = false
+    },
     cookie_food_id(food) {
       let food_object_json = JSON.stringify(food);
       cookies.set(`food_id`, food_object_json);
-      this.$router.push(`/edit-item`)
+      this.$router.push(`/edit-item`);
     },
     delete_item(details) {
       axios
@@ -37,7 +48,7 @@ export default {
           url: `https://innotechfoodie.ml/api/menu`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token_restaurant`)}`
+            token: `${cookies.get(`log_in_token_restaurant`)}`,
           },
           method: `DELETE`,
           data: {
@@ -45,8 +56,8 @@ export default {
           },
         })
         .then((response) => {
-            response
-            location.reload();
+          response;
+          location.reload();
         })
         .catch((error) => {
           alert(`Sorry, an error have occured. Please reload the page.`);
@@ -59,6 +70,7 @@ export default {
     return {
       foods: [],
       food_id: undefined,
+      delete_variable: false,
     };
   },
   mounted() {
@@ -117,5 +129,12 @@ export default {
       column-gap: 20px;
     }
   }
+}
+
+.confirm_delete_div {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  margin-top: 20px;
 }
 </style>
