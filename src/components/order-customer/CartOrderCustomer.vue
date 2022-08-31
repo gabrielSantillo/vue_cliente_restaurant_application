@@ -5,11 +5,14 @@
         <img :src="food[`image_url`]" />
         <h3>{{ food[`name`] }}</h3>
         <h4>CAD$ {{ food[`price`] }}</h4>
-        <div>
-          <button @click="make_order(food, $event)">Order</button>
-        </div>
       </div>
     </section>
+    <div v-if="order_made === false">
+      <button @click="make_order(foods, $event)">Order</button>
+    </div>
+    <div v-else>
+      <button>Order Status</button>
+    </div>
   </div>
 </template>
 
@@ -19,34 +22,38 @@ import axios from "axios";
 export default {
   data() {
     return {
-      foods: undefined
-    }
+      foods: undefined,
+      order_made: false,
+    };
   },
-  mounted () {
+  mounted() {
     let foods_json = cookies.get(`cart`);
-    this.foods = JSON.parse(foods_json)
+    this.foods = JSON.parse(foods_json);
   },
   methods: {
-    make_order(food) {
-      axios
-        .request({
-          url: `https://innotechfoodie.ml/api/client-order`,
-          headers: {
-            "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token`)}`,
-          },
-          method: `POST`,
-          data: {
-            menu_items: `${food[`id`]}`,
-            restaurant_id: `${cookies.get(`restaurant_id`)}`,
-          },
-        })
-        .then((response) => {
-          response[`data`][`order_id`];
-        })
-        .catch((error) => {
-          error;
-        });
+    make_order() {
+      for (let i = 0; i < this.foods.length; i++) {
+        axios
+          .request({
+            url: `https://innotechfoodie.ml/api/client-order`,
+            headers: {
+              "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+              token: `${cookies.get(`log_in_token`)}`,
+            },
+            method: `POST`,
+            data: {
+              menu_items: `${this.foods[i][`id`]}`,
+              restaurant_id: `${cookies.get(`restaurant_id`)}`,
+            },
+          })
+          .then((response) => {
+            response[`data`][`order_id`];
+            this.order_made = true;
+          })
+          .catch((error) => {
+            error;
+          });
+      }
     },
   },
 };
