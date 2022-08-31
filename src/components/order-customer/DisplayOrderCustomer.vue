@@ -26,10 +26,6 @@ export default {
   data() {
     return {
       cart: [],
-      track_order: false,
-      order_id: undefined,
-      is_confirmed: undefined,
-      is_completed: undefined,
     };
   },
 
@@ -40,29 +36,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.order_card {
-  display: grid;
-  border-radius: 5px;
-  width: 100%;
-  place-items: center;
 
-  > div {
-    > img {
-      width: 300px;
-      height: 300px;
-      object-fit: cover;
-    }
-
-    > p {
-      width: 300px;
-    }
-  }
-}
-
-.header {
-  display: grid;
-  grid-template-columns: 5fr 1fr;
-  place-items: center;
-  text-align: center;
-}
 </style>
