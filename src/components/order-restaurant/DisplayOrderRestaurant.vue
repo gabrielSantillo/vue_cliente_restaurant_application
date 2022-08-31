@@ -5,14 +5,33 @@
       <router-link to="dashboard-restaurant">Dashboard</router-link>
     </div>
 
-    <div class="orders" v-if="orders.length >= 1">
-      <section v-for="order in orders" :key="order[`order_id`]">
+    <div class="orders">
+      <h1>Not confirmed</h1>
+      <section v-for="order in is_not_confirmed" :key="order[`order_id`]">
         <h3>Item: {{ order[`name`] }}</h3>
         <h4>CAD$ {{ order[`price`] }}</h4>
         <div>
           <button @click="confirm_order(order, $event)">Confirm</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="orders">
+      <h1>Not Completed</h1>
+      <section v-for="order in is_not_completed" :key="order[`order_id`]">
+        <h3>Item: {{ order[`name`] }}</h3>
+        <h4>CAD$ {{ order[`price`] }}</h4>
+        <div>
           <button @click="complete_order(order, $event)">Complete</button>
         </div>
+      </section>
+    </div>
+
+    <div class="orders" v-if="orders.length >= 1">
+      <h1>Completed</h1>
+      <section v-for="order in is_completed" :key="order[`order_id`]">
+        <h3>Item: {{ order[`name`] }}</h3>
+        <h4>CAD$ {{ order[`price`] }}</h4>
       </section>
     </div>
 
@@ -28,7 +47,7 @@ import cookies from "vue-cookies";
 export default {
   methods: {
     complete_order(order) {
-        axios
+      axios
         .request({
           url: `https://innotechfoodie.ml/api/restaurant-order`,
           headers: {
@@ -43,6 +62,7 @@ export default {
         })
         .then((response) => {
           response;
+          location.reload();
         })
         .catch((error) => {
           error;
@@ -65,6 +85,7 @@ export default {
         })
         .then((response) => {
           response;
+          location.reload();
         })
         .catch((error) => {
           error;
@@ -75,6 +96,10 @@ export default {
   data() {
     return {
       orders: [],
+      is_confirmed: [],
+      is_not_confirmed: [],
+      is_completed: [],
+      is_not_completed: [],
     };
   },
   mounted() {
@@ -88,6 +113,19 @@ export default {
       })
       .then((response) => {
         this.orders = response[`data`];
+        for (let i = 0; i < this.orders.length; i++) {
+          if (this.orders[i][`is_confirmed`] === 0) {
+            this.is_not_confirmed.push(this.orders[i]);
+          } else if (
+            this.orders[i][`is_confirmed`] === 1 &&
+            this.orders[i][`is_complete`] === 0
+          ) {
+            this.is_not_completed.push(this.orders[i]);
+          } else if(this.orders[i][`is_confirmed`] === 1 &&
+            this.orders[i][`is_complete`] === 1) {
+              this.is_completed.push(this.orders[i])
+            }
+        }
       })
       .catch((error) => {
         error;

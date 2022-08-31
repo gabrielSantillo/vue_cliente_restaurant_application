@@ -1,16 +1,56 @@
 <template>
   <div>
-    <section
-      v-for="restaurant in restaurants"
-      :key="restaurant[`restaurant_id`]"
-      class="restaurant_cards"
-    >
+    <section v-if="restaurants_calgary.length >= 1">
       <div>
-        <img :src="restaurant[`banner_url`]" alt="" />
-        <h3>{{ restaurant[`name`] }}</h3>
-        <h4>{{ restaurant[`city`] }}</h4>
-        <p>{{ restaurant[`address`] }}</p>
-        <button @click="show_menu_function(restaurant, $event)">Menu</button>
+        <h1>Calgary</h1>
+      </div>
+      <div class="restaurant_cards">
+        <div
+          v-for="restaurant in restaurants_calgary"
+          :key="restaurant[`restaurant_id`]"
+        >
+          <img :src="restaurant[`banner_url`]" alt="" />
+          <h3>{{ restaurant[`name`] }}</h3>
+          <h4>{{ restaurant[`city`] }}</h4>
+          <p>{{ restaurant[`address`] }}</p>
+          <button @click="show_menu_function(restaurant, $event)">Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <section section v-if="restaurants_toronto.length >= 1">
+      <div>
+        <h1>Toronto</h1>
+      </div>
+      <div class="restaurant_cards">
+        <div
+          v-for="restaurant in restaurants_toronto"
+          :key="restaurant[`restaurant_id`]"
+        >
+          <img :src="restaurant[`banner_url`]" alt="" />
+          <h3>{{ restaurant[`name`] }}</h3>
+          <h4>{{ restaurant[`city`] }}</h4>
+          <p>{{ restaurant[`address`] }}</p>
+          <button @click="show_menu_function(restaurant, $event)">Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <section section v-if="restaurants_vancouver.length >= 1">
+      <div>
+        <h1>Vancouver</h1>
+      </div>
+      <div class="restaurant_cards">
+        <div
+          v-for="restaurant in restaurants_vancouver"
+          :key="restaurant[`restaurant_id`]"
+        >
+          <img :src="restaurant[`banner_url`]" alt="" />
+          <h3>{{ restaurant[`name`] }}</h3>
+          <h4>{{ restaurant[`city`] }}</h4>
+          <p>{{ restaurant[`address`] }}</p>
+          <button @click="show_menu_function(restaurant, $event)">Menu</button>
+        </div>
       </div>
     </section>
 
@@ -22,10 +62,6 @@
         <p>{{ food[`description`] }}</p>
         <p>CAD$ {{ food[`price`] }}</p>
       </div>
-    </section>
-
-    <section v-else>
-        <h1>This restaurant doesn't have any item registered yet.</h1>
     </section>
   </div>
 </template>
@@ -58,6 +94,9 @@ export default {
   data() {
     return {
       restaurants: [],
+      restaurants_calgary: [],
+      restaurants_toronto: [],
+      restaurants_vancouver: [],
       show_menu: false,
       foods: [],
     };
@@ -72,7 +111,15 @@ export default {
       })
       .then((response) => {
         this.restaurants = response[`data`];
-        this.restaurants;
+        for (let i = 0; i < this.restaurants.length; i++) {
+          if (this.restaurants[i][`city`] === `Calgary`) {
+            this.restaurants_calgary.push(this.restaurants[i]);
+          } else if (this.restaurants[i][`city`] === `Toronto`) {
+            this.restaurants_toronto.push(this.restaurants[i]);
+          } else {
+            this.restaurants_vancouver.push(this.restaurants[i]);
+          }
+        }
       })
       .catch((error) => {
         alert(`Sorry, an error have occured. Please reload the page.`);
@@ -85,28 +132,14 @@ export default {
 <style lang="scss" scoped>
 .restaurant_cards {
   display: grid;
-  row-gap: 20px;
-  column-gap: 20px;
-  border-radius: 5px;
-  width: 100%;
   grid-auto-flow: column;
-
+  place-items: center;
+  text-align: center;
+  column-gap: 10px;
   > div {
-    margin: 20px;
-    display: grid;
-    box-shadow: 8px 8px 16px rgb(191, 191, 191);
-    padding: 15px;
-    border-radius: 5px;
-    width: 30%;
-    place-items: center;
-    text-align: center;
-
-    > img {
-      width: 200px;
-      height: 200px;
-      max-width: 300px;
-      max-height: 300px;
-      object-fit: cover;
+    >img {
+      width: 300px;
+      height: 300px;
     }
   }
 }
@@ -119,6 +152,8 @@ export default {
   width: 100%;
   grid-auto-flow: column;
   place-items: center;
+  margin-top: 100px;
+  margin-bottom: 50px;
 
   > div {
     > img {
