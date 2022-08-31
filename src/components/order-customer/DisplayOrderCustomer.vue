@@ -5,24 +5,20 @@
         <h1>Your Order</h1>
         <router-link to="/restaurant-menu-options">Menu</router-link>
       </div>
-
-      <section v-for="food in cart" :key="food[`id`]">
-        <img :src="food[`image_url`]" />
-        <h3>{{ food[`name`] }}</h3>
-        <h4>CAD$ {{ food[`price`] }}</h4>
-      </section>
       
     </div>
   </div>
 </template>
 
 <script>
-
+import cookies from "vue-cookies"
 export default {
   methods: {
     display_food_item(food) {
       let food_object = JSON.parse(food);
       this.cart.push(food_object);
+      let cart_json = JSON.stringify(this.cart);
+      cookies.set(`cart`, cart_json)
     },
     
   },

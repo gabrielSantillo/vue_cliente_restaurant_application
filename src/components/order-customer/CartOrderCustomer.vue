@@ -6,18 +6,6 @@
         <img :src="food[`image_url`]" />
         <h3>{{ food[`name`] }}</h3>
         <h4>CAD$ {{ food[`price`] }}</h4>
-        <div>
-          <button @click="make_order(food, $event)">Order</button>
-          <div v-if="track_order" @click="track_order_function(food, $event)">
-            <button>Track Order</button>
-            <div
-              v-if="is_confirmed !== undefined && is_completed !== undefined"
-            >
-              <p>{{ is_confirmed }}</p>
-              <p>{{ is_completed }}</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   </div>
@@ -27,6 +15,15 @@
 import cookies from "vue-cookies";
 import axios from "axios";
 export default {
+  data() {
+    return {
+      foods: undefined
+    }
+  },
+  mounted () {
+    let foods_json = cookies.get(`cart`);
+    this.foods = JSON.parse(foods_json)
+  },
   methods: {
     make_order(food) {
       axios
@@ -49,15 +46,6 @@ export default {
         .catch((error) => {
           error;
         });
-    },
-    data() {
-      return {
-        foods: undefined,
-      };
-    },
-    mounted() {
-        let food_json = cookies.get(`cart_food`);
-        this.foods = JSON.parse(food_json)
     },
   },
 };
