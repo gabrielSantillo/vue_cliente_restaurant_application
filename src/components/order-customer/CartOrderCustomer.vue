@@ -1,5 +1,7 @@
 <template>
   <div>
+      <h1>Your Cart</h1>
+      <router-link to="/restaurant-menu-options">Menu</router-link>
     <section class="order_card" v-for="food in foods" :key="food[`id`]">
       <div>
         <img :src="food[`image_url`]" />
