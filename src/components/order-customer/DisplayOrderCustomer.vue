@@ -4,17 +4,13 @@
       <h1>Your Cart</h1>
       <router-link to="/restaurant-menu-options">Menu</router-link>
     </div>
-
-    <cart-order-customer></cart-order-customer>
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
-import CartOrderCustomer from './CartOrderCustomer.vue';
 
 export default {
-  components: { CartOrderCustomer },
   methods: {
     display_food_item(food) {
       let food_object = JSON.parse(food);
