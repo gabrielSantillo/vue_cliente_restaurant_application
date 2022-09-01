@@ -24,6 +24,7 @@ export default {
         menu_restaurant_page(restaurant) {
             let restaurant_object_json = JSON.stringify(restaurant);
             cookies.set(`restaurant_object`, restaurant_object_json);
+            cookies.set(`restaurant_id`, `${restaurant[`restaurant_id`]}`)
             this.$router.push(`restaurant-menu-options`);
         }
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="header">
       <h1>Order Status</h1>
       <router-link to="/menu">Menu</router-link>
     </div>
@@ -30,4 +30,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    place-items: center;
+}
+</style>

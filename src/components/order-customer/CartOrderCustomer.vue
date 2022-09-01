@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       foods: undefined,
-      order_made: false
+      order_made: false,
+      orders_id: []
     };
   },
   mounted() {
@@ -56,7 +57,9 @@ export default {
             },
           })
           .then((response) => {
-            response[`data`][`order_id`];
+            this.orders_id.push(response[`data`][`order_id`])
+            let orders_id_json = JSON.stringify(this.orders_id)
+            cookies.set(`orders_id`, orders_id_json)
             cookies.set(`order_made`, `yes`);
             location.reload();
           })
