@@ -6,15 +6,38 @@
     </div>
 
     <section>
-      <div v-for="order in recent_orders" :key="order[`order_id`]" class="orders_div">
-        <h3>{{order[`name`]}}</h3>
-        <p>CAD$ {{order[`price`]}}</p>
+      <div
+        v-for="order in recent_orders"
+        :key="order[`order_id`]"
+        class="orders_div"
+      >
+        <h3>{{ order[`name`] }}</h3>
+        <p>CAD$ {{ order[`price`] }}</p>
         <h4 v-if="order[`is_confirmed`] === 0">Not confirmed</h4>
         <h4 v-else>Confirmed</h4>
         <h4 v-if="order[`is_complete`] === 0">Not completed</h4>
         <h4 v-else>Completed</h4>
       </div>
     </section>
+
+    <div class="order_history">
+      <button @click="display_old_orders">Order History</button>
+      <section v-if="show_old_orders">
+        <div><h1>Order History</h1></div>
+        <div
+          v-for="order in old_orders"
+          :key="order[`order_id`]"
+          class="old_orders"
+        >
+          <h3>{{ order[`name`] }}</h3>
+          <p>CAD$ {{ order[`price`] }}</p>
+          <h4 v-if="order[`is_confirmed`] === 0">Not confirmed</h4>
+          <h4 v-else>Confirmed</h4>
+          <h4 v-if="order[`is_complete`] === 0">Not completed</h4>
+          <h4 v-else>Completed</h4>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -22,10 +45,16 @@
 import axios from "axios";
 import cookies from "vue-cookies";
 export default {
+    methods: {
+        display_old_orders() {
+            this.show_old_orders = !this.show_old_orders
+        }
+    },
   data() {
     return {
       recent_orders: [],
       old_orders: [],
+      show_old_orders: false
     };
   },
   mounted() {
@@ -64,11 +93,29 @@ export default {
 }
 
 .orders_div {
-    box-shadow: 8px 8px 16px rgb(255, 210, 210);
-    padding: 10px;
-    margin: 10px;
-    width: 150px;
-    text-align: center;
-    border-radius: 25px;
+  box-shadow: 8px 8px 16px rgb(255, 210, 210);
+  padding: 10px;
+  margin: 10px;
+  width: 150px;
+  text-align: center;
+  border-radius: 25px;
+}
+
+.order_history {
+  margin-top: 50px;
+  display: grid;
+  place-items: center;
+  background-color: rgb(215, 215, 215);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.old_orders {
+  padding: 10px;
+  margin: 10px;
+  width: 150px;
+  text-align: center;
+  border-radius: 25px;
+  background-color: white;
 }
 </style>
