@@ -10,11 +10,22 @@ export default {
   methods: {
     display_food_item(food) {
       let food_object = JSON.parse(food);
-      let cart = []
-      cart.push(food_object);
-      let cart_json = JSON.stringify(cart);
+      if(this.cart.length <= 0){
+        this.cart.push(food_object);
+      } else {
+        let menu_item = JSON.parse(cookies.get(`cart`))
+        this.cart.push(menu_item)
+      }
+      
+      let cart_json = JSON.stringify(this.cart);
       cookies.set(`cart`, cart_json);
     },
+  },
+
+  data() {
+    return {
+      cart: []
+    }
   },
 
   mounted() {
