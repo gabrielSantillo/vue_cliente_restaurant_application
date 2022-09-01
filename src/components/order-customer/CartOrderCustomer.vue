@@ -7,6 +7,7 @@
         <img :src="food[`image_url`]" />
         <h3>{{ food[`name`] }}</h3>
         <h4>CAD$ {{ food[`price`] }}</h4>
+        <button>Delete</button>
       </div>
     </section>
     <div v-if="order_made === false">
