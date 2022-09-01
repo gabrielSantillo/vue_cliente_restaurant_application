@@ -17,6 +17,7 @@ import MenuRestaurantPage from '@/views/customer/MenuRestaurantPage.vue'
 import CustomerOrderPage from '@/views/order/CustomerOrderPage.vue'
 import RestaurantOrderPage from '@/views/order/RestaurantOrderPage'
 import OtherRestaurantsPage from '@/views/restaurant/OtherRestaurantsPage.vue'
+import OrderStatusPage from '@/views/order/OrderStatusPage.vue'
 
 Vue.use(VueRouter)
 
@@ -104,6 +105,11 @@ const routes = [
   {
     path: `/other-restaurants`,
     component: OtherRestaurantsPage
+  },
+
+  {
+    path: `/order-status`,
+    component: OrderStatusPage
   }
 ]
 

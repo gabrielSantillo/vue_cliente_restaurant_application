@@ -13,7 +13,7 @@
       <button @click="make_order(foods, $event)">Order</button>
     </div>
     <div v-else>
-      <button>Order Status</button>
+      <button @click="order_status">Order Status</button>
     </div>
   </div>
 </template>
@@ -25,14 +25,21 @@ export default {
   data() {
     return {
       foods: undefined,
-      order_made: false,
+      order_made: false
     };
   },
   mounted() {
     let foods_json = cookies.get(`cart`);
     this.foods = JSON.parse(foods_json);
+
+    if(cookies.get(`order_made`) !== null) {
+      this.order_made = true
+    }
   },
   methods: {
+    order_status() {
+      this.$router.push(`/order-status`)
+    },
     make_order() {
       for (let i = 0; i < this.foods.length; i++) {
         axios
@@ -50,7 +57,8 @@ export default {
           })
           .then((response) => {
             response[`data`][`order_id`];
-            this.order_made = true;
+            cookies.set(`order_made`, `yes`);
+            location.reload();
           })
           .catch((error) => {
             error;
