@@ -45,17 +45,17 @@
 import axios from "axios";
 import cookies from "vue-cookies";
 export default {
-    methods: {
-        display_old_orders() {
-            this.show_old_orders = !this.show_old_orders
-        }
+  methods: {
+    display_old_orders() {
+      this.show_old_orders = !this.show_old_orders;
     },
+  },
   data() {
     return {
       recent_orders: [],
       old_orders: [],
       show_old_orders: false,
-      max_order_id: []
+      max_order_id: [],
     };
   },
   mounted() {
@@ -79,12 +79,9 @@ export default {
           }
         }
 
-        
-        this.max_order_id = this.old_orders.reduce(function(prev, current) {
-            return prev.order_id > current.order_id ? prev : current;
-        })
-        
-        console.log(this.max_order_id);
+        this.max_order_id = this.old_orders.reduce(function (prev, current) {
+          return prev.order_id > current.order_id ? prev : current;
+        });
       })
       .catch((error) => {
         error;
