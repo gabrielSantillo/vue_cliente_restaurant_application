@@ -54,7 +54,8 @@ export default {
     return {
       recent_orders: [],
       old_orders: [],
-      show_old_orders: false
+      show_old_orders: false,
+      max_order_id: []
     };
   },
   mounted() {
@@ -77,6 +78,13 @@ export default {
             }
           }
         }
+
+        
+        this.max_order_id = this.old_orders.reduce(function(prev, current) {
+            return prev.order_id > current.order_id ? prev : current;
+        })
+        
+        console.log(this.max_order_id);
       })
       .catch((error) => {
         error;

@@ -7,7 +7,7 @@
         <img :src="food[`image_url`]" />
         <h3>{{ food[`name`] }}</h3>
         <h4>CAD$ {{ food[`price`] }}</h4>
-        <button>Delete</button>
+        <button @click="delete_item(food, $event)">Delete</button>
       </div>
     </section>
     <div v-if="order_made === false">
@@ -39,12 +39,26 @@ export default {
     }
   },
   methods: {
+    delete_item(food) {
+      let cart = JSON.parse(cookies.get(`cart`))
+      for(let i = 0; i < cart.length; i++) {
+        if(food[`id`] === cart[i][`id`]){
+          cart.splice(i, 1)
+          cookies.set(`cart`, JSON.stringify(cart))
+          this.foods = cart;
+          return
+        }
+      }
+    },
     order_status() {
       this.$router.push(`/order-status`)
     },
     make_order() {
+      let menu_items_id = []
       for (let i = 0; i < this.foods.length; i++) {
-        axios
+        menu_items_id.push(this.foods[i][`id`])
+      }
+      axios
           .request({
             url: `https://innotechfoodie.ml/api/client-order`,
             headers: {
@@ -53,8 +67,8 @@ export default {
             },
             method: `POST`,
             data: {
-              menu_items: `${this.foods[i][`id`]}`,
-              restaurant_id: `${cookies.get(`restaurant_id`)}`,
+              menu_items: menu_items_id,
+              restaurant_id: cookies.get(`restaurant_id`),
             },
           })
           .then((response) => {
@@ -67,7 +81,6 @@ export default {
           .catch((error) => {
             error;
           });
-      }
     },
   },
 };
