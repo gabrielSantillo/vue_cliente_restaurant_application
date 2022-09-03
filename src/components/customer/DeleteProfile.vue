@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="delete_div" v-if="log_in_token !== null">
+      <router-link to="/menu">Menu</router-link>
       <h1>Delete your profile</h1>
       <input type="text" placeholder="password" ref="password" />
       <button @click="delete_profile">Delete</button>
@@ -53,9 +54,43 @@ export default {
 };
 </script>
 
-<style scoped>
+<style style scoped lang="scss">
 .delete_div {
   display: grid;
+  place-items: center;
   row-gap: 10px;
+
+  > input {
+    min-width: 250px;
+    max-width: 350px;
+    border: 1.5px solid rgb(207, 207, 207);
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+      > input::placeholder {
+      color: rgb(207, 207, 207);
+    }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542D;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #196838;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
 }
+
 </style>

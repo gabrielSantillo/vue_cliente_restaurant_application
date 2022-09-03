@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="profile_div" v-if="profile_updated === false">
+      <router-link to="/menu">Menu</router-link>
       <h1>Edit your profile</h1>
+      
       <input type="email" placeholder="email" ref="email" />
       <input type="text" placeholder="first name" ref="first_name" />
       <input type="text" placeholder="last name" ref="last_name" />
@@ -27,6 +29,9 @@ export default {
         }
     },
   methods: {
+    back_to_menu() {
+      this.$rooter.push(`menu`)
+    },
     edit_profile_function() {
       axios
         .request({
@@ -59,11 +64,49 @@ export default {
 };
 </script>
 
-<style scoped>
+<style style scoped lang="scss">
 .profile_div {
   display: grid;
-  grid-auto-flow: row;
   place-items: center;
   row-gap: 10px;
+
+  >img {
+    width: 50px;
+    margin-bottom: 30px;
+    justify-self: start;
+  }
+
+  > input {
+    min-width: 250px;
+    max-width: 350px;
+    border: 1.5px solid rgb(207, 207, 207);
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+      > input::placeholder {
+      color: rgb(207, 207, 207);
+    }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542D;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #196838;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
 }
+
 </style>
