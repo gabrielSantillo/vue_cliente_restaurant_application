@@ -168,7 +168,6 @@ export default {
     padding: 30px;
     margin: 20px;
     width: 200px;
-    transition: all 0.3s ease-out;
   }
 
   >.card h4 {
