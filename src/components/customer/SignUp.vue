@@ -1,18 +1,18 @@
 <template>
   <div class="sign_up">
-    <h2>Sign Up</h2>
-      <input type="email" placeholder="email" ref="email" />
-      <input type="text" placeholder="first name" ref="first_name" />
-      <input type="text" placeholder="last name" ref="last_name" />
-      <input type="text" placeholder="username" ref="username" />
-      <input type="password" placeholder="password" ref="password" />
-      <button @click="sign_up_function">Sign up</button>
+    <h2>Sign Up as Customer</h2>
+    <input type="email" placeholder="email" ref="email" />
+    <input type="text" placeholder="first name" ref="first_name" />
+    <input type="text" placeholder="last name" ref="last_name" />
+    <input type="text" placeholder="username" ref="username" />
+    <input type="password" placeholder="password" ref="password" />
+    <button @click="sign_up_function">Sign up</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import cookies from "vue-cookies"
+import cookies from "vue-cookies";
 export default {
   methods: {
     /* use gabriel@ca.com
@@ -36,11 +36,11 @@ export default {
         })
         .then((response) => {
           response[`data`][`client_id`];
-          cookies.set(`sign_in_token`, response[`data`][`token`]) ;
+          cookies.set(`sign_in_token`, response[`data`][`token`]);
           this.$router.push(`/login`);
         })
         .catch((error) => {
-          error
+          error;
           alert(`Sorry, an error have occured. Try again.`);
         });
     },
@@ -51,7 +51,43 @@ export default {
 <style style scoped lang="scss">
 .sign_up {
   display: grid;
-  width: 120px;
+  place-items: center;
   row-gap: 10px;
+
+  > input {
+    min-width: 250px;
+    max-width: 350px;
+    border: 1.5px solid rgb(207, 207, 207);
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+      > input::placeholder {
+      color: rgb(207, 207, 207);
+    }
+
+    >input::-moz-focus-inner {
+      color: pink;
+    }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542D;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #196838;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
 }
 </style>

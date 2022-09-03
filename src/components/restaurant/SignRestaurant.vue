@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <section class="register">
-      <h1>Sign Up</h1>
+  <div class="sign_up">
+      <h1>Sign Up as Restaurant</h1>
       <input type="email" placeholder="email" ref="email" />
       <input type="text" placeholder="name" ref="name" />
       <input type="address" placeholder="address" ref="address" />
@@ -17,8 +16,7 @@
         ref="city"
       />
       <input type="password" placeholder="password" ref="password" />
-      <button @click="register_restaurant">Register</button>
-    </section>
+      <button @click="register_restaurant">Sign Up</button>
   </div>
 </template>
 
@@ -60,13 +58,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.register {
-    display: grid;
-    place-items: center;
-    row-gap: 10px;
-    >input {
-        width: 15%;
-        min-width: 200px;
+.sign_up {
+  display: grid;
+  place-items: center;
+  row-gap: 10px;
+
+  > input {
+    min-width: 250px;
+    max-width: 350px;
+    border: 1.5px solid rgb(207, 207, 207);
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+      > input::placeholder {
+      color: rgb(207, 207, 207);
+    }
+
+    >input::-moz-focus-inner {
+      color: pink;
+    }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #ad1839;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #bc2848;
+    }
+
+    >button:active {
+      transform: scale(.95);
     }
 }
 </style>
