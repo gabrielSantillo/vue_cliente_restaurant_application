@@ -2,18 +2,24 @@
   <div>
     <section>
       <div class="header">
-        <h1>Restaurant</h1>
-        <router-link to="/menu">Back to Menu</router-link>
+        <router-link to="/menu">Menu</router-link>
         <router-link to="/cart-order">Cart</router-link>
       </div>
 
-      <div>
-        <img :src="banner_url" class="banner" />
-        <h3>{{ name }}</h3>
-        <h4>{{ city }}</h4>
-        <p>{{ bio }}</p>
+      <div class="restaurant">
+        <img :src="banner_url" />
+        <div>
+          <div>
+            <h3>{{ name }}</h3>
+            <h4>{{ city }}</h4>
+          </div>
+          <div>
+            <p>{{ bio }}</p>
+            <p>{{ address }}</p>
+          </div>
+        </div>
         <p>{{ phone_number }}</p>
-        <p>{{ address }}</p>
+        <div class="line"></div>
       </div>
 
       <section class="menu_card">
@@ -35,18 +41,18 @@ import axios from "axios";
 export default {
   methods: {
     add_to_cart(food) {
-      if(cookies.get(`cart`) === null) {
-        this.cart.push(food)
+      if (cookies.get(`cart`) === null) {
+        this.cart.push(food);
       } else {
-        let cart_array = JSON.parse(cookies.get(`cart`))
-        for(let i = 0; i < cart_array.length; i++){
-          this.cart.push(cart_array[i])
+        let cart_array = JSON.parse(cookies.get(`cart`));
+        for (let i = 0; i < cart_array.length; i++) {
+          this.cart.push(cart_array[i]);
         }
-        this.cart.push(food)
+        this.cart.push(food);
       }
-      
+
       let cart_json = JSON.stringify(this.cart);
-      cookies.set(`cart`, cart_json)
+      cookies.set(`cart`, cart_json);
     },
   },
   data() {
@@ -62,7 +68,7 @@ export default {
       restaurant_id: undefined,
       foods: [],
       food_object_json: [],
-      cart: []
+      cart: [],
     };
   },
   mounted() {
@@ -98,13 +104,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img {
+  width: 100%;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  text-align: center;
+  height: 50px;
+}
+
+.restaurant {
+  display: grid;
+  margin-top: 50px;
+  place-items: center;
+
+  >img {
+    width: 100%;
+    object-fit: cover;
+  }
+  > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    column-gap: 30px;
+  }
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: #13542d;
+  margin-bottom: 5px;
+}
+
 .menu_card {
+  margin-top: 50px;
   display: grid;
   row-gap: 20px;
   column-gap: 20px;
   border-radius: 5px;
   width: 100%;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   place-items: center;
 
   > div {
@@ -117,19 +160,26 @@ export default {
     > p {
       width: 300px;
     }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542D;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #196838;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
+
   }
-}
-
-.banner {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-}
-
-.header {
-  display: grid;
-  grid-template-columns: 5fr 1fr 1fr;
-  place-items: center;
-  text-align: center;
 }
 </style>
