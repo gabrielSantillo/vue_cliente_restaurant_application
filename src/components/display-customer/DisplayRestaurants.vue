@@ -8,9 +8,11 @@
       >
         <img :src="restaurant[`banner_url`]" class="restaurant_img" />
         <div>
-          <h3>{{ restaurant[`name`] }}</h3>
+          <div>
+            <h3>{{ restaurant[`name`] }}</h3>
           <h4>{{ restaurant[`city`] }}</h4>
           <p>{{ restaurant[`address`] }}</p>
+          </div>
           <button @click="menu_restaurant_page(restaurant, $event)">
             Menu
           </button>
@@ -84,7 +86,9 @@ img {
 
     > div {
       display: grid;
-      place-items: start;
+       grid-template-columns: 1fr 1fr;
+      place-items: center;
+      width: 90%;
 
     >button {
       cursor: pointer;
