@@ -76,10 +76,6 @@ export default {
       color: rgb(207, 207, 207);
     }
 
-    >input::-moz-focus-inner {
-      color: pink;
-    }
-
     >button {
       cursor: pointer;
       margin-top: 10px;
