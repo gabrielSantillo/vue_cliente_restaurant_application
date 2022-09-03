@@ -5,11 +5,11 @@
       <router-link to="/menu">Menu</router-link>
     </div>
 
-    <section>
+    <section class="orders_div">
       <div
         v-for="order in recent_orders"
         :key="order[`order_id`]"
-        class="orders_div"
+        class="card green"
       >
         <h3>{{ order[`name`] }}</h3>
         <p>CAD$ {{ order[`price`] }}</p>
@@ -22,12 +22,12 @@
 
     <div class="order_history">
       <button @click="display_old_orders">Order History</button>
-      <section v-if="show_old_orders">
-        <div><h1>Order History</h1></div>
+
+      <section v-if="show_old_orders" class="old_orders">
         <div
           v-for="order in old_orders"
           :key="order[`order_id`]"
-          class="old_orders"
+          class="card red"
         >
           <h3>{{ order[`name`] }}</h3>
           <p>CAD$ {{ order[`price`] }}</p>
@@ -98,29 +98,85 @@ export default {
 }
 
 .orders_div {
-  box-shadow: 8px 8px 16px rgb(255, 210, 210);
-  padding: 10px;
-  margin: 10px;
-  width: 150px;
-  text-align: center;
-  border-radius: 25px;
+  margin-top: 50px;
+  display: grid;
+  row-gap: 20px;
+  column-gap: 20px;
+  border-radius: 5px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  place-items: center;
+
+  > .card {
+    border-radius: 5px;
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+    padding: 30px;
+    margin: 20px;
+    width: 200px;
+    transition: all 0.3s ease-out;
+  }
+
+  >.card h4 {
+    color: #a3a5ae;
+  }
+
+  >.green {
+    border-left: 3px solid #3bb54a;
+  }
 }
 
 .order_history {
   margin-top: 50px;
   display: grid;
   place-items: center;
-  background-color: rgb(215, 215, 215);
   border-radius: 10px;
   padding: 20px;
+
+  >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542D;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #196838;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
 }
 
 .old_orders {
-  padding: 10px;
-  margin: 10px;
-  width: 150px;
-  text-align: center;
-  border-radius: 25px;
-  background-color: white;
+  margin-top: 50px;
+  display: grid;
+  row-gap: 20px;
+  column-gap: 20px;
+  border-radius: 5px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  place-items: center;
+
+  > .card {
+    border-radius: 5px;
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+    padding: 30px;
+    margin: 20px;
+    width: 200px;
+    transition: all 0.3s ease-out;
+  }
+
+  >.card h4 {
+    color: #a3a5ae;
+  }
+
+  >.red {
+    border-left: 3px solid #b3404a;
+  }
 }
 </style>
