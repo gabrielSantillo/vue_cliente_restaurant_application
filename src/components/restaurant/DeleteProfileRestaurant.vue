@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="delete_div" v-if="log_in_token !== null">
+      <router-link to="/dashboard-restaurant">Dashboard</router-link>
       <h1>Delete your profile</h1>
       <input type="text" placeholder="password" ref="password" />
       <button @click="delete_profile">Delete</button>
     </div>
-
-    
 
     <div v-if="log_in_token_restaurant === null">
       <h2>You must log in first.</h2>
@@ -61,15 +60,39 @@ export default {
 <style lang="scss" scoped>
 .delete_div {
   display: grid;
+  place-items: center;
   row-gap: 10px;
 
   > input {
-    width: 15%;
-    min-width: 200px;
+    min-width: 250px;
+    max-width: 350px;
+    border: 1.5px solid rgb(207, 207, 207);
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
   }
 
-  >button {
-    width: 10%;
-  }
+      > input::placeholder {
+      color: rgb(207, 207, 207);
+    }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #ad1839;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #bc2848;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
 }
 </style>

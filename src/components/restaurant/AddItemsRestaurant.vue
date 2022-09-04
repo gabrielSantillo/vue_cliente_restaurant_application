@@ -1,19 +1,14 @@
 <template>
-  <div class="container">
-    <h1 class="title">Add Item</h1>
-    <section>
+  <div>
+    <div class="container">
+      <router-link to="/dashboard-restaurant">Dashboard</router-link>
+      <h1 class="title">Add Item</h1>
       <input type="text" placeholder="Description" ref="description" />
       <input type="url" placeholder="image url of the product" ref="img_url" />
       <input type="text" placeholder="name" ref="name" />
       <input type="number" placeholder="price" ref="price" />
-      <div>
-        <button @click="add_item">Add item</button>
-      </div>
-    </section>
-
-    <section class="home">
-      <router-link to="/dashboard-restaurant">Home</router-link>
-    </section>
+      <button @click="add_item">Add item</button>
+    </div>
 
     <div v-if="log_in_token === null">
       <h2>It seems you are not logged in. Log up first.</h2>
@@ -75,19 +70,44 @@ export default {
 .container {
   display: grid;
   place-items: center;
-}
-
-section {
-  display: grid;
-  place-items: center;
   row-gap: 10px;
-  > input {
-    width: 15%;
-    min-width: 200px;
-  }
-}
 
-.home {
-  margin-top: 50px;
+  >img {
+    width: 50px;
+    margin-bottom: 30px;
+    justify-self: start;
+  }
+
+  > input {
+    min-width: 250px;
+    max-width: 350px;
+    border: 1.5px solid rgb(207, 207, 207);
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+      > input::placeholder {
+      color: rgb(207, 207, 207);
+    }
+
+    >button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542D;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    >button:hover {
+      background: #196838;
+    }
+
+    >button:active {
+      transform: scale(.95);
+    }
 }
 </style>
