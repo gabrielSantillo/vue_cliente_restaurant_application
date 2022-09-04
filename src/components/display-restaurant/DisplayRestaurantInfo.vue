@@ -3,7 +3,7 @@
     <section class="restaurant_info">
       <h1>{{ name }}</h1>
       <div>
-        <img :src="banner_url" />
+        <img :src="banner_url" class="banner_img"/>
         <img :src="profile_url" class="profile_img" />
       </div>
 
@@ -75,17 +75,26 @@ export default {
 .restaurant_info {
   display: grid;
   margin-top: 50px;
+  place-items: center;
   > h1 {
     text-align: center;
   }
 
   > div {
+    width: 375px;
+    display: grid;
+    place-items: center;
+     >.banner_img {
+    width: 90%;
+    justify-self: center;
+  }
+
     > .profile_img {
       width: 100px;
       height: 100px;
       object-fit: cover;
       border-radius: 50px;
-      transform: translateY(-50px) translateX(25px);
+      transform: translateY(-50px) translateX(-100px);
     }
   }
 
@@ -106,6 +115,6 @@ export default {
 }
 
 img {
-  width: 375px;
+  width: 100%;
 }
 </style>

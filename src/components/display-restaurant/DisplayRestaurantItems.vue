@@ -1,26 +1,29 @@
 <template>
   <div>
-    <div>
-      <h1>Restaurant Items</h1>
-    </div>
-
-    <section v-for="food in foods" :key="food[`id`]" class="items_card">
-      <div>
+    <section class="items_card">
+      <div v-for="food in foods" :key="food[`id`]">
         <img :src="food[`image_url`]" alt="" />
         <h4>{{ food[`name`] }}</h4>
         <p>{{ food[`description`] }}</p>
         <p>CAD$ {{ food[`price`] }}</p>
-        <div>
-          <button @click="cookie_food_id(food, $event)">Edit Item</button>
-          <button @click="delete_to_true">Delete Item</button>
-          </div>
-          <div class="confirm_delete_div" v-if="delete_variable === true">
-            <button @click="delete_item" :food_id="food[`id`]">
-              Confirm
-            </button>
-            <button @click="delete_to_false">Not delete</button>
-          </div>
-        
+        <div class="buttons">
+          <button @click="cookie_food_id(food, $event)" class="edit_button">
+            Edit Item
+          </button>
+          <button @click="delete_to_true" class="delete_button">
+            Delete Item
+          </button>
+        </div>
+        <div class="buttons" v-if="delete_variable === true">
+          <button
+            @click="delete_item"
+            :food_id="food[`id`]"
+            class="delete_button"
+          >
+            Confirm
+          </button>
+          <button @click="delete_to_false" class="delete_button">Not delete</button>
+        </div>
       </div>
     </section>
   </div>
@@ -32,10 +35,10 @@ import cookies from "vue-cookies";
 export default {
   methods: {
     delete_to_true() {
-      this.delete_variable = true
+      this.delete_variable = true;
     },
     delete_to_false() {
-      this.delete_variable = false
+      this.delete_variable = false;
     },
     cookie_food_id(food) {
       let food_object_json = JSON.stringify(food);
@@ -96,39 +99,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img {
+  width: 100%;
+  height: 250px;
+}
 .items_card {
+  margin-top: 50px;
   display: grid;
   row-gap: 20px;
   column-gap: 20px;
-  border-radius: 5px;
-  width: 100%;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
-  > div {
-    margin: 20px;
-    display: grid;
-    box-shadow: 8px 8px 16px rgb(191, 191, 191);
-    padding: 15px;
-    border-radius: 5px;
-    width: 30%;
-    place-items: center;
-    text-align: center;
-
-    > img {
-      width: 200px;
-      height: 200px;
-      max-width: 300px;
-      max-height: 300px;
-      object-fit: cover;
-    }
-
-    > div {
-      display: grid;
-      grid-auto-flow: column;
-      place-items: center;
-      column-gap: 20px;
-    }
+  > img {
+    object-fit: cover;
+    justify-self: center;
   }
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 25px;
+  place-items: center;
+  margin-top: 25px;
+  margin-bottom: 40px;
+}
+
+.edit_button {
+  cursor: pointer;
+  margin-top: 10px;
+  border: none;
+  background: #13542d;
+  color: white;
+  padding: 10px;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.edit_button:hover {
+  background: #196838;
+}
+
+> button:active {
+  transform: scale(0.95);
+}
+
+.delete_button {
+  cursor: pointer;
+  margin-top: 10px;
+  border: none;
+  background: #ad1839;
+  color: white;
+  padding: 10px;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.delete_button:hover {
+  background: #bc2848;
+}
+
+> .delete_button:active {
+  transform: scale(0.95);
 }
 
 .confirm_delete_div {
