@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <section v-if="restaurants_calgary.length >= 1">
-      <div>
-        <h1>Calgary</h1>
-      </div>
+  <div class="div_father">
+    <router-link to="/dashboard-restaurant">Dasboard</router-link>
+    <section v-if="restaurants_calgary.length >= 1" class="city_restaurant">
+      <h1>Calgary</h1>
+
       <div class="restaurant_cards">
         <div
           v-for="restaurant in restaurants_calgary"
@@ -11,17 +11,19 @@
         >
           <img :src="restaurant[`banner_url`]" alt="" />
           <h3>{{ restaurant[`name`] }}</h3>
-          <h4>{{ restaurant[`city`] }}</h4>
           <p>{{ restaurant[`address`] }}</p>
           <button @click="show_menu_function(restaurant, $event)">Menu</button>
         </div>
       </div>
     </section>
 
-    <section section v-if="restaurants_toronto.length >= 1">
-      <div>
-        <h1>Toronto</h1>
-      </div>
+    <section
+      section
+      v-if="restaurants_toronto.length >= 1"
+      class="city_restaurant"
+    >
+      <h1>Toronto</h1>
+
       <div class="restaurant_cards">
         <div
           v-for="restaurant in restaurants_toronto"
@@ -29,17 +31,19 @@
         >
           <img :src="restaurant[`banner_url`]" alt="" />
           <h3>{{ restaurant[`name`] }}</h3>
-          <h4>{{ restaurant[`city`] }}</h4>
           <p>{{ restaurant[`address`] }}</p>
           <button @click="show_menu_function(restaurant, $event)">Menu</button>
         </div>
       </div>
     </section>
 
-    <section section v-if="restaurants_vancouver.length >= 1">
-      <div>
-        <h1>Vancouver</h1>
-      </div>
+    <section
+      section
+      v-if="restaurants_vancouver.length >= 1"
+      class="city_restaurant"
+    >
+      <h1>Vancouver</h1>
+
       <div class="restaurant_cards">
         <div
           v-for="restaurant in restaurants_vancouver"
@@ -47,7 +51,6 @@
         >
           <img :src="restaurant[`banner_url`]" alt="" />
           <h3>{{ restaurant[`name`] }}</h3>
-          <h4>{{ restaurant[`city`] }}</h4>
           <p>{{ restaurant[`address`] }}</p>
           <button @click="show_menu_function(restaurant, $event)">Menu</button>
         </div>
@@ -57,10 +60,12 @@
     <section v-if="foods.length >= 1" class="menu_card">
       <h1>Menu</h1>
       <div v-for="food in foods" :key="food[`id`]">
-        <img :src="food[`image_url`]" alt="" />
-        <h4>{{ food[`name`] }}</h4>
-        <p>{{ food[`description`] }}</p>
-        <p>CAD$ {{ food[`price`] }}</p>
+        <div class="card">
+          <img :src="food[`image_url`]" alt="" />
+          <h4>{{ food[`name`] }}</h4>
+          <p>{{ food[`description`] }}</p>
+          <p>CAD$ {{ food[`price`] }}</p>
+        </div>
       </div>
     </section>
   </div>
@@ -130,41 +135,70 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img {
+  width: 100%;
+}
+
+.div_father {
+  display: grid;
+  place-items: center;
+}
+
+.city_restaurant {
+  display: grid;
+  place-items: center;
+}
 .restaurant_cards {
   display: grid;
-  grid-auto-flow: column;
+  row-gap: 20px;
+  column-gap: 20px;
+  border-radius: 5px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   place-items: center;
-  text-align: center;
-  column-gap: 10px;
+  margin-bottom: 30px;
   > div {
-    >img {
+    > img {
       width: 300px;
-      height: 300px;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    > button {
+      cursor: pointer;
+      margin-top: 10px;
+      border: none;
+      background: #13542d;
+      color: white;
+      padding: 10px;
+      width: 100px;
+      border-radius: 5px;
+    }
+
+    > button:hover {
+      background: #196838;
+    }
+
+    > button:active {
+      transform: scale(0.95);
     }
   }
 }
 
 .menu_card {
   display: grid;
-  row-gap: 20px;
-  column-gap: 20px;
-  border-radius: 5px;
-  width: 100%;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   place-items: center;
-  margin-top: 100px;
-  margin-bottom: 50px;
+  row-gap: 50px;
+  column-gap: 20px;
+}
 
-  > div {
-    > img {
-      width: 300px;
-      height: 300px;
-      object-fit: cover;
-    }
-
-    > p {
-      width: 300px;
-    }
+.card {
+  >img {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
   }
 }
+
 </style>

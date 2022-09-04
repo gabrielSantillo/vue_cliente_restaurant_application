@@ -11,6 +11,7 @@
     </div>
     <div class="line"></div>
     <h1>Cart</h1>
+    
     <section class="cart">
       <div v-for="food in foods" :key="food[`id`]">
         <img :src="food[`image_url`]" />

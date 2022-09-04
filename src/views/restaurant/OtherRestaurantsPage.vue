@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/dashboard-restaurant">Back</router-link>
+        
         <others-restaurants></others-restaurants>
     </div>
 </template>
