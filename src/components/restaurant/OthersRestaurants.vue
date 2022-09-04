@@ -1,6 +1,6 @@
 <template>
   <div class="div_father">
-    <router-link to="/dashboard-restaurant">Dasboard</router-link>
+    <router-link to="/dashboard-restaurant">Dashboard</router-link>
     <section v-if="restaurants_calgary.length >= 1" class="city_restaurant">
       <h1>Calgary</h1>
 
