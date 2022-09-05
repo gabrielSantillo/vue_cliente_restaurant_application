@@ -55,7 +55,8 @@ export default {
       recent_orders: [],
       old_orders: [],
       show_old_orders: false,
-      max_order_id: [],
+      past_orders_equal_id: [],
+      past_orders_different_id: [],
     };
   },
   mounted() {
@@ -78,10 +79,15 @@ export default {
             }
           }
         }
+          this.old_orders.sort(function(a, b) {
+            if(a.order_id > b.order_id) {
+              return -1;
+            } else {
+              return true;
+            }
+          });
 
-        this.max_order_id = this.old_orders.reduce(function (prev, current) {
-          return prev.order_id > current.order_id ? prev : current;
-        });
+          console.log(this.old_orders);
       })
       .catch((error) => {
         error;
@@ -116,11 +122,11 @@ export default {
     transition: all 0.3s ease-out;
   }
 
-  >.card h4 {
+  > .card h4 {
     color: #a3a5ae;
   }
 
-  >.green {
+  > .green {
     border-left: 3px solid #3bb54a;
   }
 }
@@ -132,24 +138,24 @@ export default {
   border-radius: 10px;
   padding: 20px;
 
-  >button {
-      cursor: pointer;
-      margin-top: 10px;
-      border: none;
-      background: #13542D;
-      color: white;
-      padding: 10px;
-      width: 100px;
-      border-radius: 5px;
-    }
+  > button {
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    background: #13542d;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+  }
 
-    >button:hover {
-      background: #196838;
-    }
+  > button:hover {
+    background: #196838;
+  }
 
-    >button:active {
-      transform: scale(.95);
-    }
+  > button:active {
+    transform: scale(0.95);
+  }
 }
 
 .old_orders {
@@ -170,11 +176,11 @@ export default {
     width: 200px;
   }
 
-  >.card h4 {
+  > .card h4 {
     color: #a3a5ae;
   }
 
-  >.red {
+  > .red {
     border-left: 3px solid #b3404a;
   }
 }
