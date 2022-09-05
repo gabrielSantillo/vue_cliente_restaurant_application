@@ -55,7 +55,7 @@ export default {
       recent_orders: [],
       old_orders: [],
       show_old_orders: false,
-      order_history: [],
+      order_history: undefined,
     };
   },
   mounted() {
@@ -90,8 +90,11 @@ export default {
         let higher_id = this.old_orders.reduce(function (prev, current) {
           return prev.order_id > current.order_id ? prev : current;
         });
-        higher_id
-        console.log(this.old_orders);
+
+        for (let j = higher_id[`order_id`]; j >= 1; j--) {
+          this.order_history = this.old_orders.filter(item => item.order_id === j)
+        }
+        console.log(`Result`, this.order_history);
       })
       .catch((error) => {
         error;
