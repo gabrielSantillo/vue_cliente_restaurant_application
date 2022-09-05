@@ -78,30 +78,28 @@ export default {
             }
           }
         }
-        
-          this.old_orders.sort(function(a, b) {
-            if(a.order_id > b.order_id) {
-              return -1;
-            } else {
-              return true;
-            }
-          });
 
-          let higher_id = this.old_orders.reduce(function(prev, current) {
-            return (prev.order_id > current.order_id) ? prev : current
-          });
-          
-          for(let j = higher_id[`order_id`]; j >= 1; j--) {
-            for(let i = 0; i < this.old_orders.length; i++){
-            if(this.old_orders[i][`order_id`] === j) {
-                this.order_history.push({
-                  order_id: this.old_orders[i][`order_id`],
-                  orders: [this.old_orders[i]]
-                })}
-                /* quero adicionar nesse array, um novo array com uma chave para order_id e uma outra chave que contem o pedido que faça parte desse order_id */
+        this.old_orders.sort(function (a, b) {
+          if (a.order_id > b.order_id) {
+            return -1;
+          } else {
+            return true;
+          }
+        });
+
+        let higher_id = this.old_orders.reduce(function (prev, current) {
+          return prev.order_id > current.order_id ? prev : current;
+        });
+
+        for (let j = higher_id[`order_id`]; j >= 1; j--) {
+          for (let i = 0; i < this.old_orders.length; i++) {
+            if (this.old_orders[i][`order_id`] === j) {
+              this.order_history.push(this.old_orders[i]);
             }
-          }          
-          console.log(this.order_history)
+            /* quero adicionar nesse array, um novo array com uma chave para order_id e uma outra chave que contem o pedido que faça parte desse order_id */
+          }
+        }
+        console.log(this.order_history);
       })
       .catch((error) => {
         error;
