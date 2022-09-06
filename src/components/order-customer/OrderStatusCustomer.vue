@@ -55,7 +55,7 @@ export default {
       recent_orders: [],
       old_orders: [],
       show_old_orders: false,
-      order_history: [],
+      order_history: undefined,
       history: [],
     };
   },
@@ -93,13 +93,11 @@ export default {
         });
 
         for (let i = 0; i < this.old_orders.length; i++) {
-          for (let j = higher_id[`order_id`]; j >= 1; j--) {
-            if (j === this.old_orders[i][`order_id`]) {
-              this.order_history.push(
-                this.old_orders.filter((item) => item.order_id === j)
-              );
-            }
-          }
+          
+            
+              this.order_history = this.old_orders.filter((item) => {return item.order_id <= higher_id});
+            
+          console.log(this.order_history);
         }
 
       })
