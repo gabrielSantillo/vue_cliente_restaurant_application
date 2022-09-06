@@ -94,7 +94,7 @@ export default {
 
 
           this.order_history = this.old_orders.filter(
-            (order) => order[`price`] <= higher_id[`order_id`]
+            (order) => order[`order_id`] <= higher_id[`order_id`]
           );
 
           console.log(`result`, this.order_history)
