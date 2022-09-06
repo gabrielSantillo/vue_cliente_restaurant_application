@@ -92,13 +92,12 @@ export default {
           return prev.order_id > current.order_id ? prev : current;
         });
 
-        for (let i = 0; i < this.old_orders.length; i++) {
-          
-            
-              this.order_history = this.old_orders.filter((item) => {return item.order_id <= higher_id});
-            
-          console.log(this.order_history);
-        }
+
+          this.order_history = this.old_orders.filter(
+            (order) => order[`price`] <= higher_id[`order_id`]
+          );
+
+          console.log(`result`, this.order_history)
 
       })
       .catch((error) => {
