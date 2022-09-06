@@ -102,7 +102,6 @@ export default {
           }
         }
 
-        console.log(`Result`, this.order_history);
       })
       .catch((error) => {
         error;
