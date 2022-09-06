@@ -56,6 +56,7 @@ export default {
       old_orders: [],
       show_old_orders: false,
       order_history: [],
+      history: [],
     };
   },
   mounted() {
@@ -92,13 +93,15 @@ export default {
         });
 
         for (let i = 0; i < this.old_orders.length; i++) {
-          for(let j = higher_id[`order_id`]; j >= 1; j--){
-            if(j === this.old_orders[i][`order_id`]) {
-              this.order_history.push(this.old_orders.filter(item => item.order_id === j))
+          for (let j = higher_id[`order_id`]; j >= 1; j--) {
+            if (j === this.old_orders[i][`order_id`]) {
+              this.order_history.push(
+                this.old_orders.filter((item) => item.order_id === j)
+              );
             }
           }
-          
         }
+
         console.log(`Result`, this.order_history);
       })
       .catch((error) => {

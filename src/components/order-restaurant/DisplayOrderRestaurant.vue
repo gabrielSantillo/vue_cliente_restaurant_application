@@ -139,6 +139,15 @@ export default {
             this.is_completed.push(this.orders[i]);
           }
         }
+
+        this.orders.sort(function (a, b) {
+          if (a.order_id > b.order_id) {
+            return -1;
+          } else {
+            return true;
+          }
+        });
+
       })
       .catch((error) => {
         error;
