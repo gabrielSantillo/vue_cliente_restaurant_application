@@ -101,6 +101,13 @@ export default {
           this.past_orders_by_id[this.orders_id_array[i]] = [];
         }
 
+        for(let i = 0; i < this.orders_id_array.length; i++) {
+          for(let j = 0; j < this.old_orders.length; j++) {
+            if(this.orders_id_array[i] === this.old_orders[j][`order_id`]) {
+              this.past_orders_by_id[this.orders_id_array[i]].push(this.old_orders[j])
+            }
+          }
+        }
 
         console.log(`testing`, this.past_orders_by_id)
         console.log(`array`, this.orders_id_array)
