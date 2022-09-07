@@ -56,7 +56,10 @@ export default {
       old_orders: [],
       show_old_orders: false,
       order_history: undefined,
-      history: [],
+      orders_id_array: [],
+      past_orders_by_id: {
+        94: []
+      },
     };
   },
   mounted() {
@@ -88,17 +91,29 @@ export default {
           }
         });
 
+        for (let i = 0; i < this.old_orders.length; i++) {
+          this.orders_id_array.push(`${this.old_orders[i][`order_id`]}`);
+        }
+
+        this.orders_id_array = [...new Set(this.orders_id_array)];
+
+        for (let i = 0; i < this.orders_id_array.length; i++) {
+          this.past_orders_by_id.orders_id_array[i] = [];
+        }
+
+        console.log(`testing`, this.past_orders_by_id)
+
+        /*
         let higher_id = this.old_orders.reduce(function (prev, current) {
           return prev.order_id > current.order_id ? prev : current;
         });
+        */
 
-
+        /*
           this.order_history = this.old_orders.filter(
             (order) => order[`order_id`] <= higher_id[`order_id`]
           );
-
-          console.log(`result`, this.order_history)
-
+        */
       })
       .catch((error) => {
         error;
