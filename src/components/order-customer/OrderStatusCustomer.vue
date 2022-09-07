@@ -57,9 +57,7 @@ export default {
       show_old_orders: false,
       order_history: undefined,
       orders_id_array: [],
-      past_orders_by_id: {
-        94: []
-      },
+      past_orders_by_id: {},
     };
   },
   mounted() {
@@ -95,25 +93,18 @@ export default {
           this.orders_id_array.push(`${this.old_orders[i][`order_id`]}`);
         }
 
-        this.orders_id_array = [...new Set(this.orders_id_array)];
+        this.orders_id_array.reverse()
+        this.orders_id_array = this.orders_id_array.map(Number);
+        
 
         for (let i = 0; i < this.orders_id_array.length; i++) {
-          this.past_orders_by_id.orders_id_array[i] = [];
+          this.past_orders_by_id[this.orders_id_array[i]] = [];
         }
 
+
         console.log(`testing`, this.past_orders_by_id)
+        console.log(`array`, this.orders_id_array)
 
-        /*
-        let higher_id = this.old_orders.reduce(function (prev, current) {
-          return prev.order_id > current.order_id ? prev : current;
-        });
-        */
-
-        /*
-          this.order_history = this.old_orders.filter(
-            (order) => order[`order_id`] <= higher_id[`order_id`]
-          );
-        */
       })
       .catch((error) => {
         error;
