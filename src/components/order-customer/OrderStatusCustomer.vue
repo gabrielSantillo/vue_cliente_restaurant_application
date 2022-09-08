@@ -23,19 +23,27 @@
     <div class="order_history">
       <button @click="display_old_orders">Order History</button>
 
-      <section v-if="show_old_orders" class="old_orders">
-        <div
-          v-for="order in old_orders"
-          :key="order[`order_id`]"
-          class="card red"
+      <section v-if="show_old_orders">
+        <section
+          v-for="order_id in orders_id_array"
+          :key="order_id"
+          class="old_orders"
         >
-          <h3>{{ order[`name`] }}</h3>
-          <p>CAD$ {{ order[`price`] }}</p>
-          <h4 v-if="order[`is_confirmed`] === 0">Not confirmed</h4>
-          <h4 v-else>Confirmed</h4>
-          <h4 v-if="order[`is_complete`] === 0">Not completed</h4>
-          <h4 v-else>Completed</h4>
-        </div>
+          <div
+            v-for="item in past_orders_by_id[order_id]"
+            :key="item"
+            class="card red"
+          >
+            <h3>{{ item[`name`] }}</h3>
+            <p>{{ item[`price`] }}</p>
+            <h4 v-if="item[`is_confirmed`] === 0">Not confirmed</h4>
+            <h4 v-else>Confirmed</h4>
+            <h4 v-if="item[`is_complete`] === 0">Not completed</h4>
+            <h4 v-else>Completed</h4>
+          </div>
+          <br /><br /><br />
+          <hr />
+        </section>
       </section>
     </div>
   </div>
@@ -55,7 +63,6 @@ export default {
       recent_orders: [],
       old_orders: [],
       show_old_orders: false,
-      order_history: undefined,
       orders_id_array: [],
       past_orders_by_id: {},
     };
@@ -93,25 +100,22 @@ export default {
           this.orders_id_array.push(`${this.old_orders[i][`order_id`]}`);
         }
 
-        this.orders_id_array.reverse()
+        this.orders_id_array.reverse();
         this.orders_id_array = this.orders_id_array.map(Number);
-        
 
         for (let i = 0; i < this.orders_id_array.length; i++) {
           this.past_orders_by_id[this.orders_id_array[i]] = [];
         }
 
-        for(let i = 0; i < this.orders_id_array.length; i++) {
-          for(let j = 0; j < this.old_orders.length; j++) {
-            if(this.orders_id_array[i] === this.old_orders[j][`order_id`]) {
-              this.past_orders_by_id[this.orders_id_array[i]].push(this.old_orders[j])
+        for (let i = 0; i < this.orders_id_array.length; i++) {
+          for (let j = 0; j < this.old_orders.length; j++) {
+            if (this.orders_id_array[i] === this.old_orders[j][`order_id`]) {
+              this.past_orders_by_id[this.orders_id_array[i]].push(
+                this.old_orders[j]
+              );
             }
           }
         }
-
-        console.log(`testing`, this.past_orders_by_id)
-        console.log(`array`, this.orders_id_array)
-
       })
       .catch((error) => {
         error;
@@ -183,7 +187,6 @@ export default {
 }
 
 .old_orders {
-  margin-top: 50px;
   display: grid;
   row-gap: 20px;
   column-gap: 20px;
