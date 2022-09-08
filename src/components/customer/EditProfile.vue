@@ -25,14 +25,17 @@ import cookies from "vue-cookies";
 export default {
     data() {
         return {
+          /* setting profile_updated to false */
             profile_updated: false
         }
     },
   methods: {
     back_to_menu() {
+      /* function that leave the user to the menu page */
       this.$rooter.push(`menu`)
     },
     edit_profile_function() {
+    /* axios request to the client API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/client`,
@@ -41,6 +44,7 @@ export default {
             token: `${cookies.get(`log_in_token`)}`,
           },
           method: `PATCH`,
+          /* sending this data to update */
           data: {
             email: this.$refs[`email`][`value`],
             first_name: this.$refs[`first_name`][`value`],
@@ -51,11 +55,13 @@ export default {
           },
         })
         .then((response) => {
+          /* on success show a message and set the variable profile_updated to true */
           response;
           alert(`You have updated your profile information.`);
           this.profile_updated = true;
         })
         .catch((error) => {
+          /* on failure show a message */
           error;
           alert(`Sorry, an error have occured. Please, try again.`);
         });

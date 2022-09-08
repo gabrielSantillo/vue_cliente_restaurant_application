@@ -29,6 +29,7 @@ import cookies from "vue-cookies";
 export default {
   data() {
     return {
+      /* variables that will be set as the restaurant informations */
       address: undefined,
       banner_url: undefined,
       bio: undefined,
@@ -42,6 +43,7 @@ export default {
     };
   },
   mounted() {
+    /* axios request to the restaurant API */
     axios
       .request({
         url: ` https://innotechfoodie.ml/api/restaurant`,
@@ -53,6 +55,7 @@ export default {
         },
       })
       .then((response) => {
+        /* on success grab all restaurant information */
         this.address = response[`data`][0][`address`];
         this.banner_url = response[`data`][0][`banner_url`];
         this.bio = response[`data`][0][`bio`];
@@ -64,6 +67,7 @@ export default {
         response[`data`][0][`restaurant_id`];
       })
       .catch((error) => {
+        /* on failure show a message */
         alert(`Sorry, an error have occured. Please reload the page.`);
         error;
       });

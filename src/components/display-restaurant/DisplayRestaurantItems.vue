@@ -34,18 +34,26 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
+    /* function that set the variable delete_variable to true */
     delete_to_true() {
       this.delete_variable = true;
     },
+    /* function that set the variable to false */
     delete_to_false() {
       this.delete_variable = false;
     },
+    /* function that a cookie with the food object */
     cookie_food_id(food) {
+      /* stringfy the food object */
       let food_object_json = JSON.stringify(food);
+      /* set the cookie with the food JSON */
       cookies.set(`food_id`, food_object_json);
+      /* leave the user the edit item page */
       this.$router.push(`/edit-item`);
     },
+    /* this function deletes the item  */
     delete_item(details) {
+      /* axios request to the menu API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/menu`,
@@ -60,9 +68,11 @@ export default {
         })
         .then((response) => {
           response;
+          /* on success reload the page */
           location.reload();
         })
         .catch((error) => {
+          /* on failure show a message */
           alert(`Sorry, an error have occured. Please reload the page.`);
           error;
         });
@@ -77,6 +87,7 @@ export default {
     };
   },
   mounted() {
+    /* on mounted a axios request to the menu API */
     axios
       .request({
         url: `https://innotechfoodie.ml/api/menu`,
@@ -88,9 +99,11 @@ export default {
         },
       })
       .then((response) => {
+        /* on success store the value in response at data */
         this.foods = response[`data`];
       })
       .catch((error) => {
+        /* on failure show a message */
         alert(`Sorry, an error have occured. Please reload the page.`);
         error;
       });

@@ -21,15 +21,16 @@ import cookies from "vue-cookies";
 export default {
   data() {
     return {
+      /* setting the variable sign_in_token to null */
       sign_in_token: null,
     };
   },
   mounted() {
+    /* on mounted get the value of the cooke sign_in_token */
     this.sign_in_token = cookies.get(`sign_in_token`);
   },
   methods: {
-    /* use gabriel@gabriel.com
-    password 123 */
+    /* axios request to the client API to send log in information*/
     log_in_function() {
       axios
         .request({
@@ -44,12 +45,15 @@ export default {
           },
         })
         .then((response) => {
+          /* on success set the cookie value to the token received from the API */
           response[`data`][`client_id`];
           cookies.set(`log_in_token`, response[`data`][`token`]) ;
+          /* leave the user to the menu page */
           this.$router.push(`/menu`);
         })
         .catch((error) => {
           error
+          /* on failure show a message */
           alert(`Sorry, ana error have occured. Try again.`);
         });
     },

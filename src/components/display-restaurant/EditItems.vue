@@ -31,6 +31,7 @@ import cookies from "vue-cookies";
 import axios from "axios";
 export default {
   methods: {
+    /* this function edit the item making a axios request to the menu API */
     edit_item() {
       axios
         .request({
@@ -40,6 +41,7 @@ export default {
             token: `${cookies.get(`log_in_token_restaurant`)}`,
           },
           method: `PATCH`,
+          /* data sent to be updated */
           data: {
             description: this.$refs[`description`][`value`],
             image_url: this.$refs[`img_url`][`value`],
@@ -50,15 +52,18 @@ export default {
         })
         .then((response) => {
           response;
+          /* on success set the variable to true */
           this.item_eddited = true;
         })
         .catch((error) => {
           error;
+          /* on failure show the user a message */
           alert(`Sorry, an error have occured. Try again.`);
         });
     },
   },
   data() {
+    /* data waiting to be setted as the food that will be editted */
     return {
       name: undefined,
       description: undefined,
@@ -69,6 +74,7 @@ export default {
     };
   },
   mounted() {
+    /* in mountain grab all food informations */
     let food_object = cookies.get(`food_id`);
     this.name = food_object[`name`];
     this.description = food_object[`description`];
