@@ -23,7 +23,7 @@
     <div class="order_history">
       <button @click="display_old_orders">Order History</button>
 
-      <section v-if="show_old_orders">
+      
         <section
           v-for="order_id in orders_id_array"
           :key="order_id"
@@ -35,16 +35,14 @@
             class="card red"
           >
             <h3>{{ item[`name`] }}</h3>
-            <p>{{ item[`price`] }}</p>
+            <p>CAD$ {{ item[`price`] }}</p>
             <h4 v-if="item[`is_confirmed`] === 0">Not confirmed</h4>
             <h4 v-else>Confirmed</h4>
             <h4 v-if="item[`is_complete`] === 0">Not completed</h4>
             <h4 v-else>Completed</h4>
           </div>
-          <br /><br /><br />
-          <hr />
+          <br><br><br>
         </section>
-      </section>
     </div>
   </div>
 </template>
@@ -187,6 +185,7 @@ export default {
 }
 
 .old_orders {
+  margin-top: 50px;
   display: grid;
   row-gap: 20px;
   column-gap: 20px;
@@ -210,5 +209,12 @@ export default {
   > .red {
     border-left: 3px solid #b3404a;
   }
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background: black;
+  display: block;
 }
 </style>
