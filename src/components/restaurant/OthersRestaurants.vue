@@ -75,6 +75,7 @@
 import axios from "axios";
 export default {
   methods: {
+    /* this function shows the menu of others restaurants */
     show_menu_function(restaurant) {
       axios
         .request({
@@ -87,10 +88,13 @@ export default {
           },
         })
         .then((response) => {
+          /* on success get the menu at response at data */
           this.foods = response[`data`];
+          /* set the variable to true */
           this.show_menu = true;
         })
         .catch((error) => {
+          /* on error show the user a message */
           alert(`Sorry, an error have occured. Please reload the page.`);
           error;
         });
@@ -98,6 +102,7 @@ export default {
   },
   data() {
     return {
+      /* this variables are waiting to be setted */
       restaurants: [],
       restaurants_calgary: [],
       restaurants_toronto: [],
@@ -107,6 +112,7 @@ export default {
     };
   },
   mounted() {
+    /* on mounted make an axios reques to the restaurants API */
     axios
       .request({
         url: `https://innotechfoodie.ml/api/restaurants`,
@@ -115,7 +121,9 @@ export default {
         },
       })
       .then((response) => {
+        /* on success get the restaurant object at response at data */
         this.restaurants = response[`data`];
+        /* for loop through the restauran and inside of it checks form which city the restaurants are */
         for (let i = 0; i < this.restaurants.length; i++) {
           if (this.restaurants[i][`city`] === `Calgary`) {
             this.restaurants_calgary.push(this.restaurants[i]);
@@ -127,6 +135,7 @@ export default {
         }
       })
       .catch((error) => {
+        /* on failure show a message */
         alert(`Sorry, an error have occured. Please reload the page.`);
         error;
       });

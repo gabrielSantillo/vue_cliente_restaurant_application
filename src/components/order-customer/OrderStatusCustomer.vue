@@ -23,7 +23,7 @@
     <div class="order_history">
       <button @click="display_old_orders">Order History</button>
 
-      
+      <section v-if="show_old_orders === true">
         <section
           v-for="order_id in orders_id_array"
           :key="order_id"
@@ -41,8 +41,9 @@
             <h4 v-if="item[`is_complete`] === 0">Not completed</h4>
             <h4 v-else>Completed</h4>
           </div>
-          <br><br><br>
+          <br /><br /><br />
         </section>
+      </section>
     </div>
   </div>
 </template>
@@ -52,12 +53,14 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
+    /* this function set the variable to true */
     display_old_orders() {
       this.show_old_orders = !this.show_old_orders;
     },
   },
   data() {
     return {
+      /* these variables are expecting to be setted */
       recent_orders: [],
       old_orders: [],
       show_old_orders: false,
@@ -66,6 +69,7 @@ export default {
     };
   },
   mounted() {
+    /* ou mounted axios request to the client-order API */
     axios
       .request({
         url: `https://innotechfoodie.ml/api/client-order`,
@@ -75,17 +79,24 @@ export default {
         },
       })
       .then((response) => {
+        /* on success get the cookie with the order id value */
         let orders_id = JSON.parse(cookies.get(`orders_id`));
+        /* loop through orders id length */
         for (let i = 0; i < orders_id.length; i++) {
+          /* loop through the API response at data */
           for (let j = 0; j < response[`data`].length; j++) {
+            /* checks if the order id in the api is equal the cookie order id */
             if (response[`data`][j][`order_id`] === orders_id[i]) {
+              /* if yes, push the food to the recent_orders varaible at the API response */
               this.recent_orders.push(response[`data`][j]);
             } else {
+              /* if not, push the food to the old_orders */
               this.old_orders.push(response[`data`][j]);
             }
           }
         }
 
+        /* sorting the old orders */
         this.old_orders.sort(function (a, b) {
           if (a.order_id > b.order_id) {
             return -1;
@@ -94,20 +105,28 @@ export default {
           }
         });
 
+        /* adding the order ids to an array */
         for (let i = 0; i < this.old_orders.length; i++) {
           this.orders_id_array.push(`${this.old_orders[i][`order_id`]}`);
         }
 
+        /* reversing the orders id array */
         this.orders_id_array.reverse();
+        /* making this arrays of string be an array of number */
         this.orders_id_array = this.orders_id_array.map(Number);
 
+        /* for loop that goes to the array of orders id and set as the key the order id and as the value empty arrays */
         for (let i = 0; i < this.orders_id_array.length; i++) {
           this.past_orders_by_id[this.orders_id_array[i]] = [];
         }
-
+        
+        /* for loop that through the orders id array */
         for (let i = 0; i < this.orders_id_array.length; i++) {
+          /* for loop through old orders */
           for (let j = 0; j < this.old_orders.length; j++) {
+            /* checks if they have the same order id */
             if (this.orders_id_array[i] === this.old_orders[j][`order_id`]) {
+              /* if yes, push this order to the key order id */
               this.past_orders_by_id[this.orders_id_array[i]].push(
                 this.old_orders[j]
               );
@@ -117,6 +136,8 @@ export default {
       })
       .catch((error) => {
         error;
+        /* on failure show a message */
+        alert(`Sorry, something went wrong. Try again.`)
       });
   },
 };

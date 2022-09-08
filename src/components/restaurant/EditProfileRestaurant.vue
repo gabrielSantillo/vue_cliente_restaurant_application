@@ -30,7 +30,9 @@ import cookies from "vue-cookies";
 import axios from "axios";
 export default {
   methods: {
+    /* this function edit the restaurant user profile */
     edit_profile_function() {
+      /* axios request to the restaurat API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/restaurant`,
@@ -39,6 +41,7 @@ export default {
             token: `${cookies.get(`log_in_token_restaurant`)}`,
           },
           method: `PATCH`,
+          /* the data being updated */
           data: {
             email: this.$refs[`email`][`value`],
             name: this.$refs[`name`][`value`],
@@ -53,11 +56,13 @@ export default {
         })
         .then((response) => {
           response;
+          /* on success show a success message and set the profile updated variable to true */
           alert(`You have updated your profile information.`);
           this.profile_updated = true;
         })
         .catch((error) => {
           error;
+          /* on failure show a message */
           alert(`Sorry, an error have occured. Please, try again.`);
         });
     },

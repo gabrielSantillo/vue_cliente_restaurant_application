@@ -30,10 +30,12 @@ export default {
     };
   },
   mounted() {
+    /* on mounted get the token cookie value */
     this.log_in_token = cookies.get(`log_in_token_restaurant`);
   },
 
   methods: {
+    /* this function log the restaurant user out and leave the user in home page */
     log_out_function() {
       cookies.remove(`log_in_token_restaurant`);
       this.$router.push(`/`);

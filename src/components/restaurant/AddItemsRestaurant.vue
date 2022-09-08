@@ -22,6 +22,7 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
+    /* this function add restaurant items to the menu API */
     add_item() {
       axios
         .request({
@@ -31,6 +32,7 @@ export default {
             token: `${cookies.get(`log_in_token_restaurant`)}`,
           },
           method: `POST`,
+          /* data being sent */
           data: {
             description: this.$refs[`description`][`value`],
             image_url: this.$refs[`img_url`][`value`],
@@ -39,6 +41,7 @@ export default {
           },
         })
         .then((response) => {
+          /* on success show the user a message of success and reload the page */
           response;
           alert(
             `You have added ${
@@ -48,6 +51,7 @@ export default {
           location.reload();
         })
         .catch((error) => {
+          /* on failure show a message */
           error;
           alert(`Sorry, an error have occured. Try again.`);
         });
@@ -55,6 +59,7 @@ export default {
   },
 
   mounted() {
+    /* on mounted get the token cookie value */
     this.log_in_token = cookies.get(`log_in_token_restaurant`);
   },
 

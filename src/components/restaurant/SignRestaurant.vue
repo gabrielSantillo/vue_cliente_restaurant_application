@@ -25,6 +25,7 @@ import axios from "axios";
 import cookies from "vue-cookies"
 export default {
   methods: {
+    /* this function sign up the restaurant user */
     register_restaurant() {
       axios.request({
         url: `https://innotechfoodie.ml/api/restaurant`,
@@ -32,6 +33,7 @@ export default {
           "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
         },
         method: `POST`,
+        /* the data sent with the restautant informatio */
         data: {
             email: this.$refs[`email`][`value`],
             name: this.$refs[`name`][`value`],
@@ -44,12 +46,15 @@ export default {
             password: this.$refs[`password`][`value`],
         }
       }).then((response) => {
+        /* on success setting a cookie with the restaurant id */
         cookies.set(`restaurant_id`, response[`data`][`restaurantId`]);
+        /* setting a cookie with the sign in token */
         cookies.set(`sign_in_token_restaurant`, response[`data`][`token`]);
         this.$router.push(`/login-restaurant`);
         
       }).catch((error) => {
         error
+        /* on failure show a message */
         alert(`Sorry, an error have occured. Please try again.`)
       })
     },

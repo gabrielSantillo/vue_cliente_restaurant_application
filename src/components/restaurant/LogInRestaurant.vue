@@ -19,6 +19,7 @@ import cookies from "vue-cookies";
 import axios from "axios";
 export default {
   methods: {
+    /* this function log in the user */
     log_in_function() {
       axios
         .request({
@@ -33,12 +34,16 @@ export default {
           },
         })
         .then((response) => {
+          /* on success set the restaurant id as a cookie */
           cookies.set(`restaurant_id`, `${response[`data`][`restaurantId`]}`);
+          /* set the restaurant log in token as a cookie */
           cookies.set(`log_in_token_restaurant`, response[`data`][`token`]);
+          /* pushes the user to the dashboard page */
           this.$router.push(`/dashboard-restaurant`);
         })
         .catch((error) => {
           error;
+          /*on failure show a message */
           alert(`Sorry, ana error have occured. Try again.`);
         });
     },
@@ -46,11 +51,11 @@ export default {
 
   data() {
     return {
-      /** NEED TO CHANGE THIS LOGIC FOR THE USER BE ABLE TO LOG IN */
       sign_in_token: null,
     };
   },
   mounted() {
+    /* on mounted get the sign in token cookie value */
     this.sign_in_token = cookies.get(`sign_in_token_restaurant`);
   },
 };

@@ -57,7 +57,9 @@ import axios from "axios";
 import cookies from "vue-cookies";
 export default {
   methods: {
+    /* this function update the value of is_complete to true */
     complete_order(order) {
+      /* axios request to the restaurant-order API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/restaurant-order`,
@@ -66,21 +68,26 @@ export default {
             token: `${cookies.get(`log_in_token_restaurant`)}`,
           },
           method: `PATCH`,
+          /* the data that update the variable is_complete */
           data: {
             order_id: order[`order_id`],
             is_complete: "true",
           },
         })
         .then((response) => {
+          /* on success, reload the page */
           response;
           location.reload();
         })
         .catch((error) => {
           error;
+          /* on failure show a message */
           alert(`Sorry an error have occured. Please, refresh the page`);
         });
     },
+    /* this function update the value of is_confirmed to true */
     confirm_order(order) {
+      /* axios request to the restaurant-order API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/restaurant-order`,
@@ -89,6 +96,7 @@ export default {
             token: `${cookies.get(`log_in_token_restaurant`)}`,
           },
           method: `PATCH`,
+          /* the data that update the variable is_confirmed */
           data: {
             order_id: order[`order_id`],
             is_confirmed: "true",
@@ -96,16 +104,19 @@ export default {
         })
         .then((response) => {
           response;
+          /* on success, reload the page */
           location.reload();
         })
         .catch((error) => {
           error;
+          /* on faiure show a message */
           alert(`Sorry an error have occured. Please, refresh the page`);
         });
     },
   },
   data() {
     return {
+      /* data wainting to be setted */
       orders: [],
       is_confirmed: [],
       is_not_confirmed: [],
@@ -114,6 +125,7 @@ export default {
     };
   },
   mounted() {
+    /* on mounted axios request to the restaurant order API */
     axios
       .request({
         url: `https://innotechfoodie.ml/api/restaurant-order`,
@@ -123,23 +135,32 @@ export default {
         },
       })
       .then((response) => {
+        /* on success get the order at response at data */
         this.orders = response[`data`];
+        /* loop through this order */
         for (let i = 0; i < this.orders.length; i++) {
+          /* if at is_confirmed is zero */
           if (this.orders[i][`is_confirmed`] === 0) {
+            /* if yes, push this order to is not confirmed variable */
             this.is_not_confirmed.push(this.orders[i]);
           } else if (
+            /* if is confirmed but not completed */
             this.orders[i][`is_confirmed`] === 1 &&
             this.orders[i][`is_complete`] === 0
           ) {
+            /* push to the order to not completed variable */
             this.is_not_completed.push(this.orders[i]);
           } else if (
+            /* if is confirmed and complete */
             this.orders[i][`is_confirmed`] === 1 &&
             this.orders[i][`is_complete`] === 1
           ) {
+            /* push to the is completd variable */
             this.is_completed.push(this.orders[i]);
           }
         }
 
+        /* sorting the order */
         this.orders.sort(function (a, b) {
           if (a.order_id > b.order_id) {
             return -1;
@@ -150,6 +171,7 @@ export default {
 
       })
       .catch((error) => {
+        /* on failure show a message */
         error;
         alert(`Sorry an error have occured. Please, refresh the page`);
       });

@@ -24,10 +24,12 @@ export default {
     };
   },
   mounted() {
+    /* on mounted get the token cookie value */
     this.log_in_token_restaurant = cookies.get(`log_in_token_restaurant`);
   },
 
   methods: {
+    /* this function deletes the restaurant user profile */
     delete_profile() {
       axios
         .request({
@@ -42,6 +44,7 @@ export default {
           },
         })
         .then((response) => {
+          /* on success show a success message, remove from the cookie the sign in token, log in token and pushes the user to the signup page */
           response;
           alert(`You have successfully deleted your profile`);
           cookies.remove(`sign_in_token_restaurant`);
@@ -50,6 +53,7 @@ export default {
         })
         .catch((error) => {
           error;
+          /* on failure show a message */
           alert(`Sorry, an error have occured. Please try again.`);
         });
     },

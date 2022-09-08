@@ -29,39 +29,55 @@ import axios from "axios";
 export default {
   data() {
     return {
+      /* data waiting to be setted */
       foods: undefined,
       order_made: false,
       orders_id: [],
     };
   },
   mounted() {
+    /* on mounted grab the cart cookie value */
     let foods_json = cookies.get(`cart`);
+    /* set the variable with the cart value */
     this.foods = JSON.parse(foods_json);
 
+/* check if the order_made cookie is different that null */
     if (cookies.get(`order_made`) !== null) {
+      /* if yes, set the variable to true */
       this.order_made = true;
     }
   },
   methods: {
+    /* this function deletes the item in the cart */
     delete_item(food) {
+      /* setting the variable with the cookie value of cart */
       let cart = JSON.parse(cookies.get(`cart`));
+      /* for loop that will go through the cart */
       for (let i = 0; i < cart.length; i++) {
+        /* checking if the the food id is equal to the cart id */
         if (food[`id`] === cart[i][`id`]) {
+          /* if yes, splice this item */
           cart.splice(i, 1);
+          /* set the cookie again */
           cookies.set(`cart`, JSON.stringify(cart));
+          /* setting the variable with the cart value */
           this.foods = cart;
           return;
         }
       }
     },
+    /* leaves the user to the order status page */
     order_status() {
       this.$router.push(`/order-status`);
     },
+    /* this function makes the order */
     make_order() {
       let menu_items_id = [];
+      /* for loop that goes through to the foods and add the food id in the menu itens array */
       for (let i = 0; i < this.foods.length; i++) {
         menu_items_id.push(this.foods[i][`id`]);
       }
+      /* axios request to the client-order API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/client-order`,
@@ -76,14 +92,21 @@ export default {
           },
         })
         .then((response) => {
+          /* on success grab the order_id response */
           this.orders_id.push(response[`data`][`order_id`]);
+          /* stringfy the order id */
           let orders_id_json = JSON.stringify(this.orders_id);
+          /* set the cookie with the JSON value of the order id */
           cookies.set(`orders_id`, orders_id_json);
+          /* set a cookie of order_made to yes */
           cookies.set(`order_made`, `yes`);
+          /* reloead the page */
           location.reload();
         })
         .catch((error) => {
           error;
+          /* on failure show a message */
+          alert(`Sorry, an error have occured`)
         });
     },
   },
