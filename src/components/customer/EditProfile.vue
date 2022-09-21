@@ -4,16 +4,14 @@
     <div class="current_information">
       <h1>Current information</h1>
       <div>
-        <h3>Email: {{default_email}}</h3>
-        <h3>First name: {{default_first_name}}</h3>
-        <h3>Last name: {{default_last_name}}</h3>
-        <h3>Username: {{default_username}}</h3>
-        <h3>Password: {{default_password}}</h3>
+        <h3>Email: {{ default_email }}</h3>
+        <h3>First name: {{ default_first_name }}</h3>
+        <h3>Last name: {{ default_last_name }}</h3>
+        <h3>Username: {{ default_username }}</h3>
       </div>
     </div>
 
     <div class="profile_div" v-if="profile_updated === false">
-      
       <h1>Edit your profile</h1>
 
       <input type="email" placeholder="email" ref="email" />
@@ -78,39 +76,33 @@ export default {
       this.$rooter.push(`menu`);
     },
     edit_profile_function() {
-      if (this.$refs[`email`][`value`] !== '') {
+      if (this.$refs[`email`][`value`] !== "") {
         this.default_email = this.$refs[`email`][`value`];
       }
 
-      if (this.$refs[`first_name`][`value`] !== '') {
+      if (this.$refs[`first_name`][`value`] !== "") {
         this.default_first_name = this.$refs[`first_name`][`value`];
       }
 
-      if (this.$refs[`last_name`][`value`] !== '') {
+      if (this.$refs[`last_name`][`value`] !== "") {
         this.default_last_name = this.$refs[`last_name`][`value`];
       }
 
-      if (this.$refs[`username`][`value`] !== '') {
+      if (this.$refs[`username`][`value`] !== "") {
         this.default_username = this.$refs[`username`][`value`];
       }
 
-      if (this.$refs[`password`][`value`] !== '') {
+      if (this.$refs[`password`][`value`] !== "") {
         this.default_password = this.$refs[`password`][`value`];
       }
 
-      console.log(this.default_email);
-      console.log(this.default_first_name);
-      console.log(this.default_last_name);
-      console.log(this.default_username);
-      console.log(this.default_password);
-      
       /* axios request to the client API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/client`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token`)}`,
+            token: `${cookies.get(`sign_in_token`)}`,
           },
           method: `PATCH`,
           /* sending this data to update */
