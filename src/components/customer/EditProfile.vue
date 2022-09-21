@@ -1,7 +1,19 @@
 <template>
   <div>
+    <router-link to="/menu">Menu</router-link>
+    <div class="current_information">
+      <h1>Current information</h1>
+      <div>
+        <h3>Email: {{default_email}}</h3>
+        <h3>First name: {{default_first_name}}</h3>
+        <h3>Last name: {{default_last_name}}</h3>
+        <h3>Username: {{default_username}}</h3>
+        <h3>Password: {{default_password}}</h3>
+      </div>
+    </div>
+
     <div class="profile_div" v-if="profile_updated === false">
-      <router-link to="/menu">Menu</router-link>
+      
       <h1>Edit your profile</h1>
 
       <input type="email" placeholder="email" ref="email" />
@@ -128,6 +140,19 @@ export default {
 </script>
 
 <style style scoped lang="scss">
+.current_information {
+  display: grid;
+  place-items: center;
+  margin-bottom: 50px;
+
+  > div {
+    background-color: #c9decf;
+    width: 80%;
+    text-align: center;
+    border-radius: 25px;
+  }
+}
+
 .profile_div {
   display: grid;
   place-items: center;
