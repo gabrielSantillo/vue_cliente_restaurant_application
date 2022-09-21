@@ -50,7 +50,7 @@ export default {
         cookies.set(`restaurant_id`, response[`data`][`restaurantId`]);
         /* setting a cookie with the sign in token */
         cookies.set(`sign_in_token_restaurant`, response[`data`][`token`]);
-        this.$router.push(`/login-restaurant`);
+        this.$router.push(`/dashboard-restaurant`);
         
       }).catch((error) => {
         error
