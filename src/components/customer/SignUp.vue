@@ -37,7 +37,7 @@ export default {
         })
         .then((response) => {
           /* on success, set the cookie with the token received from the API response */
-          response[`data`][`client_id`];
+          cookies.set(`client_id`, response[`data`][`client_id`]);
           cookies.set(`sign_in_token`, response[`data`][`token`]);
           /* leave the user to the log in page */
           this.$router.push(`/menu`);

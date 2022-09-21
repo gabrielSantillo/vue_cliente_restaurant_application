@@ -23,6 +23,12 @@
 import axios from "axios";
 import cookies from "vue-cookies";
 export default {
+
+  mounted () {
+    axios.request({
+      
+    });
+  },
     data() {
         return {
           /* setting profile_updated to false */
