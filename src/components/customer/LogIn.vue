@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="log_in" v-if="sign_in_token === null">
+    <div class="log_in" v-if="sign_in_token !== null">
       <h1>Log In</h1>
       <input type="email" placeholder="email" ref="email" />
       <input type="password" placeholder="password" ref="password" />

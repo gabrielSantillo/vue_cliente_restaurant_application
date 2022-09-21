@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="log_in_token !== null">
+    <div v-if="log_in_token !== null || sign_in_token !== null">
       <section class="mobile">
         <div class="header_div">
           <div class="header_links"> 
@@ -38,11 +38,13 @@ export default {
   },
   data() {
     return {
-      log_in_token: true,
+      log_in_token: null,
+      sign_in_token: null
     };
   },
   mounted() {
     this.log_in_token = cookies.get(`log_in_token`);
+    this.sign_in_token = cookies.get(`sign_in_token`);
   },
 };
 </script>
