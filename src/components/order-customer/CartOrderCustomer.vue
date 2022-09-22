@@ -62,7 +62,7 @@ export default {
           /* set the cookie with the JSON value of the order id */
           cookies.set(`orders_id`, orders_id_json);
 
-         // this.$router.push(`/order-status`);//
+          this.$router.push(`/order-status`);
         })
         .catch((error) => {
           error;

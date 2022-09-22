@@ -75,7 +75,7 @@ export default {
         url: `https://innotechfoodie.ml/api/client-order`,
         headers: {
           "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-          token: `${cookies.get(`log_in_token`)}`,
+          token: `${cookies.get(`customer_token`)}`,
         },
       })
       .then((response) => {
