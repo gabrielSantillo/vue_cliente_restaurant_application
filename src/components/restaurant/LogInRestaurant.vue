@@ -7,7 +7,7 @@
       <button @click="log_in_function">Enter</button>
     </div>
 
-    <div class="sign_up" v-if="sign_in_token === null">
+    <div class="sign_up" v-if="restaurant_token === null">
       <h2>If you don't have an account yet, sign up first.</h2>
       <router-link to="/signup-restaurant">Sign Up</router-link>
     </div>
@@ -44,19 +44,19 @@ export default {
         .catch((error) => {
           error;
           /*on failure show a message */
-          alert(`Sorry, ana error have occured. Try again.`);
+          alert(`Sorry, an error have occured. Try again.`);
         });
     },
   },
 
   data() {
     return {
-      sign_in_token: null,
+      restaurant_token: null,
     };
   },
   mounted() {
     /* on mounted get the sign in token cookie value */
-    this.sign_in_token = cookies.get(`restaurant_token`);
+    this.restaurant_token = cookies.get(`restaurant_token`);
   },
 };
 </script>

@@ -10,7 +10,7 @@
       <button @click="add_item">Add item</button>
     </div>
 
-    <div v-if="log_in_token === null">
+    <div v-if="restaurant_token === null">
       <h2>It seems you are not logged in. Log up first.</h2>
       <router-link to="/login-restaurant">Sign Up</router-link>
     </div>
@@ -60,12 +60,12 @@ export default {
 
   mounted() {
     /* on mounted get the token cookie value */
-    this.log_in_token = cookies.get(`log_in_token_restaurant`);
+    this.restaurant_token = cookies.get(`restaurant_token`);
   },
 
   data() {
     return {
-      log_in_token: null,
+      restaurant_token: null,
     };
   },
 };

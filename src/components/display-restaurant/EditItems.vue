@@ -1,15 +1,11 @@
 <template>
   <div>
     <section>
-      <div class="food" v-if="item_eddited === false">
+      <div class="food">
         <img :src="image_url" />
         <h4>{{ name }}</h4>
         <p>{{ description }}</p>
         <p>CAD$ {{ price }}</p>
-      </div>
-
-      <div v-else class="response">
-        <h1> You have eddited your item.</h1>
       </div>
 
       <div class="input">
@@ -33,27 +29,53 @@ export default {
   methods: {
     /* this function edit the item making a axios request to the menu API */
     edit_item() {
+      if(this.$refs[`description`][`value`] != "") {
+        this.description = this.$refs[`description`][`value`]
+      }
+
+      if(this.$refs[`img_url`][`value`] != "") {
+        this.image_url = this.$refs[`img_url`][`value`]
+      }
+
+      if(this.$refs[`name`][`value`] != "") {
+        this.name = this.$refs[`name`][`value`]
+      }
+
+      if(this.$refs[`price`][`value`] != "") {
+        this.price = this.$refs[`price`][`value`]
+      }
       axios
         .request({
           url: `https://innotechfoodie.ml/api/menu`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token_restaurant`)}`,
+            token: `${cookies.get(`restaurant_token`)}`,
           },
           method: `PATCH`,
           /* data sent to be updated */
           data: {
-            description: this.$refs[`description`][`value`],
-            image_url: this.$refs[`img_url`][`value`],
-            name: this.$refs[`name`][`value`],
-            price: this.$refs[`price`][`value`],
+            description: this.description,
+            image_url: this.image_url,
+            name: this.name,
+            price: this.price,
             menu_id: `${this.menu_id}`,
           },
         })
         .then((response) => {
           response;
           /* on success set the variable to true */
-          this.item_eddited = true;
+        alert("You have eddited the item");
+
+        let food = {
+          description: this.description,
+          image_url: this.image_url,
+          name: this.name,
+          price: this.price,
+          menu_id:`${this.menu_id}`
+        }
+
+        let food_json = JSON.stringify(food);
+        cookies.set(`food_id`, food_json);
         })
         .catch((error) => {
           error;
@@ -70,7 +92,6 @@ export default {
       image_url: undefined,
       price: undefined,
       menu_id: undefined,
-      item_eddited: false,
     };
   },
   mounted() {
@@ -88,7 +109,7 @@ export default {
 <style lang="scss" scoped>
 section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   column-gap: 30px;
   margin-top: 50px;
   height: 350px;
@@ -110,10 +131,12 @@ img {
   display: grid;
   height: 60%;
   place-items: center;
+  margin-bottom: 50px;
 
   > input {
     height: 30px;
     width: 250px;
+    margin: 5px;
   }
 }
 
