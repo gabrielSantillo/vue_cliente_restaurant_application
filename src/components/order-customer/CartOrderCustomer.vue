@@ -2,36 +2,27 @@
   <div>
     <div class="header">
       <router-link to="/restaurant-menu-options">Menu</router-link>
-      <div v-if="order_made === false">
+      <div>
         <button @click="make_order(foods, $event)">Order</button>
-      </div>
-      <div v-else>
-        <button @click="order_status">Order Status</button>
       </div>
     </div>
     <div class="line"></div>
     <h1>Cart</h1>
-    
-    <section class="cart">
-      <div v-for="food in foods" :key="food[`id`]">
-        <img :src="food[`image_url`]" />
-        <h3>{{ food[`name`] }}</h3>
-        <h4>CAD$ {{ food[`price`] }}</h4>
-        <button @click="delete_item(food, $event)">Delete</button>
-      </div>
-    </section>
+
+    <cart-page></cart-page>
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
 import axios from "axios";
+import CartPage from "./CartPage.vue";
 export default {
+  components: { CartPage },
   data() {
     return {
       /* data waiting to be setted */
       foods: undefined,
-      order_made: false,
       orders_id: [],
     };
   },
@@ -40,36 +31,8 @@ export default {
     let foods_json = cookies.get(`cart`);
     /* set the variable with the cart value */
     this.foods = JSON.parse(foods_json);
-
-/* check if the order_made cookie is different that null */
-    if (cookies.get(`order_made`) !== null) {
-      /* if yes, set the variable to true */
-      this.order_made = true;
-    }
   },
   methods: {
-    /* this function deletes the item in the cart */
-    delete_item(food) {
-      /* setting the variable with the cookie value of cart */
-      let cart = JSON.parse(cookies.get(`cart`));
-      /* for loop that will go through the cart */
-      for (let i = 0; i < cart.length; i++) {
-        /* checking if the the food id is equal to the cart id */
-        if (food[`id`] === cart[i][`id`]) {
-          /* if yes, splice this item */
-          cart.splice(i, 1);
-          /* set the cookie again */
-          cookies.set(`cart`, JSON.stringify(cart));
-          /* setting the variable with the cart value */
-          this.foods = cart;
-          return;
-        }
-      }
-    },
-    /* leaves the user to the order status page */
-    order_status() {
-      this.$router.push(`/order-status`);
-    },
     /* this function makes the order */
     make_order() {
       let menu_items_id = [];
@@ -83,7 +46,7 @@ export default {
           url: `https://innotechfoodie.ml/api/client-order`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token`)}`,
+            token: `${cookies.get(`customer_token`)}`,
           },
           method: `POST`,
           data: {
@@ -98,15 +61,13 @@ export default {
           let orders_id_json = JSON.stringify(this.orders_id);
           /* set the cookie with the JSON value of the order id */
           cookies.set(`orders_id`, orders_id_json);
-          /* set a cookie of order_made to yes */
-          cookies.set(`order_made`, `yes`);
-          /* reloead the page */
-          location.reload();
+
+         // this.$router.push(`/order-status`);//
         })
         .catch((error) => {
           error;
           /* on failure show a message */
-          alert(`Sorry, an error have occured`)
+          alert(`Sorry, an error have occured`);
         });
     },
   },
