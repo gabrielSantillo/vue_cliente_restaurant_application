@@ -22,48 +22,16 @@
         <div class="line"></div>
       </div>
 
-      <section class="menu_card">
-        <div v-for="food in foods" :key="food[`id`]">
-          <img :src="food[`image_url`]" alt="" />
-          <h4>{{ food[`name`] }}</h4>
-          <p>{{ food[`description`] }}</p>
-          <p>CAD$ {{ food[`price`] }}</p>
-          <button @click="add_to_cart(food, $event)">Add to cart</button>
-        </div>
-      </section>
+      <restaurant-menu-item></restaurant-menu-item>
     </section>
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
-import axios from "axios";
+import RestaurantMenuItem from "./RestaurantMenuItem.vue";
 export default {
-  methods: {
-    /* function that add the item to the cart */
-    add_to_cart(food) {
-      /*check if the cookie cart is no empty */
-      if (cookies.get(`cart`) === null) {
-        /* if yes, add the item in the array */
-        this.cart.push(food);
-      } 
-      /* if not, get the cookie cart as JSON and turn into array again */
-      else {
-        let cart_array = JSON.parse(cookies.get(`cart`));
-        /* for loop that goes the cart arrays and adds the itens in the cart again*/
-        for (let i = 0; i < cart_array.length; i++) {
-          this.cart.push(cart_array[i]);
-        }
-        /* add the food that was just clicked to be added */
-        this.cart.push(food);
-      }
-
-      /* transform the array in a JSON */
-      let cart_json = JSON.stringify(this.cart);
-      /* set the cookie cart with the JSON value */
-      cookies.set(`cart`, cart_json);
-    },
-  },
+  components: { RestaurantMenuItem },
   data() {
     return {
       address: undefined,
@@ -75,9 +43,7 @@ export default {
       phone_number: undefined,
       profile_url: undefined,
       restaurant_id: undefined,
-      foods: [],
       food_object_json: [],
-      cart: [],
     };
   },
   mounted() {
@@ -92,26 +58,7 @@ export default {
     this.profile_url = restaurant_object[`profile`];
     this.restaurant_id = restaurant_object[`restaurant_id`];
 
-    axios
-      .request({
-        /* axios request to the menu API */
-        url: `https://innotechfoodie.ml/api/menu`,
-        headers: {
-          "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-        },
-        params: {
-          restaurant_id: `${this.restaurant_id}`,
-        },
-      })
-      .then((response) => {
-        /* on success get the items that are in response at data */
-        this.foods = response[`data`];
-      })
-      .catch((error) => {
-        /* on failure show a message */
-        alert(`Sorry, an error have occured. Please reload the page.`);
-        error;
-      });
+    cookies.set(`restaurant_id`, this.restaurant_id);
   },
 };
 </script>
@@ -134,7 +81,7 @@ img {
   margin-top: 50px;
   place-items: center;
 
-  >img {
+  > img {
     width: 100%;
     object-fit: cover;
   }
@@ -174,25 +121,24 @@ img {
       width: 300px;
     }
 
-    >button {
+    > button {
       cursor: pointer;
       margin-top: 10px;
       border: none;
-      background: #13542D;
+      background: #13542d;
       color: white;
       padding: 10px;
       width: 100px;
       border-radius: 5px;
     }
 
-    >button:hover {
+    > button:hover {
       background: #196838;
     }
 
-    >button:active {
-      transform: scale(.95);
+    > button:active {
+      transform: scale(0.95);
     }
-
   }
 }
 </style>
