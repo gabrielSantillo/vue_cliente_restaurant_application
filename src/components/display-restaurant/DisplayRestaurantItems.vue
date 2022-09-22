@@ -14,6 +14,7 @@
             Delete Item
           </button>
         </div>
+        <delete-item></delete-item>
         <div class="buttons" v-if="delete_variable === true">
           <button
             @click="delete_item"
@@ -32,7 +33,9 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
+import DeleteItem from './DeleteItem.vue';
 export default {
+  components: { DeleteItem },
   methods: {
     /* function that set the variable delete_variable to true */
     delete_to_true() {
