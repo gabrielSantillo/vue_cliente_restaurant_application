@@ -29,7 +29,7 @@ export default {
           url: `https://innotechfoodie.ml/api/menu`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token_restaurant`)}`,
+            token: `${cookies.get(`log_in_token`)}`,
           },
           method: `POST`,
           /* data being sent */

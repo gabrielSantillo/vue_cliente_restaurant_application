@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="log_in" v-if="sign_in_token !== null">
+    <div class="log_in" v-if="customer_token !== null">
       <h1>Log In</h1>
       <input type="email" placeholder="email" ref="email" />
       <input type="password" placeholder="password" ref="password" />
       <button @click="log_in_function">Enter</button>
     </div>
 
-    <div class="sign_up" v-if="sign_in_token === null">
+    <div class="sign_up" v-if="customer_token === null">
       <h2>If you don't have an account yet, sign up first.</h2>
       <router-link to="/signup">Sign Up</router-link>
     </div>
@@ -22,12 +22,12 @@ export default {
   data() {
     return {
       /* setting the variable sign_in_token to null */
-      sign_in_token: null,
+      customer_token: null,
     };
   },
   mounted() {
     /* on mounted get the value of the cooke sign_in_token */
-    this.sign_in_token = cookies.get(`sign_in_token`);
+    this.customer_token = cookies.get(`customer_token`);
   },
   methods: {
     /* axios request to the client API to send log in information*/
@@ -47,7 +47,7 @@ export default {
         .then((response) => {
           /* on success set the cookie value to the token received from the API */
           cookies.set(`client_id`, response[`data`][`client_id`]);
-          cookies.set(`log_in_token`, response[`data`][`token`]) ;
+          cookies.set(`customer_token`, response[`data`][`token`]) ;
           /* leave the user to the menu page */
           this.$router.push(`/menu`);
         })

@@ -29,29 +29,84 @@
 import cookies from "vue-cookies";
 import axios from "axios";
 export default {
+ mounted() {
+    /* axios request to the restaurant API */
+    axios
+      .request({
+        url: ` https://innotechfoodie.ml/api/restaurant`,
+        headers: {
+          "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+        },
+        params: {
+          restaurant_id: `${cookies.get(`restaurant_id`)}`,
+        },
+      })
+      .then((response) => {
+        /* on success grab all restaurant information */
+        this.default_address = response[`data`][0][`address`];
+        this.default_bio = response[`data`][0][`bio`];
+        this.default_city = response[`data`][0][`city`];
+        this.defaul_email = response[`data`][0][`email`];
+        this.default_name = response[`data`][0][`name`];
+        this.default_phone_number = response[`data`][0][`phone_number`];
+      })
+      .catch((error) => {
+        /* on failure show a message */
+        alert(`Sorry, an error have occured. Please reload the page.`);
+        error;
+      });
+  },
   methods: {
     /* this function edit the restaurant user profile */
     edit_profile_function() {
+      if(this.$refs[`email`][`value`] != "") {
+        this.defaul_email = this.$refs[`email`][`value`];
+      }
+
+      if(this.$refs[`name`][`value`] != "") {
+        this.default_name = this.$refs[`name`][`value`];
+      }
+
+      if(this.$refs[`address`][`value`] != "") {
+        this.default_address = this.$refs[`address`][`value`];
+      }
+
+      if(this.$refs[`phone`][`value`] != "") {
+        this.default_phone_number = this.$refs[`phone`][`value`];
+      }
+
+      if(this.$refs[`bio`][`value`] != "") {
+        this.default_bio = this.$refs[`bio`][`value`]
+      }
+
+      if(this.$refs[`city`][`value`] != "") {
+        this.default_city = this.$refs[`city`][`value`]
+      }
+
+      if(this.$refs[`password`][`value`] != "") {
+        this.default_password = this.$refs[`password`][`value`]
+      }
+
       /* axios request to the restaurat API */
       axios
         .request({
           url: `https://innotechfoodie.ml/api/restaurant`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token_restaurant`)}`,
+            token: `${cookies.get(`restaurant_token`)}`,
           },
           method: `PATCH`,
           /* the data being updated */
           data: {
-            email: this.$refs[`email`][`value`],
-            name: this.$refs[`name`][`value`],
-            address: this.$refs[`address`][`value`],
-            phone_number: this.$refs[`phone`][`value`],
-            bio: this.$refs[`bio`][`value`],
-            city: this.$refs[`city`][`value`],
+            email: this.defaul_email,
+            name: this.default_name,
+            address: this.default_address,
+            phone_number: this.default_phone_number,
+            bio: this.default_bio,
+            city: this.default_city,
             profile_url: `https://images.pexels.com/photos/8477063/pexels-photo-8477063.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
             banner_url: `https://images.pexels.com/photos/5858047/pexels-photo-5858047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`,
-            password: this.$refs[`password`][`value`],
+            password: this.default_password,
           },
         })
         .then((response) => {
@@ -70,6 +125,13 @@ export default {
   data() {
     return {
       profile_updated: false,
+      defaul_email: null,
+      default_name: null,
+      default_address: null,
+      default_phone_number: null,
+      default_bio: null,
+      default_city: null,
+      default_password: null
     };
   },
 };

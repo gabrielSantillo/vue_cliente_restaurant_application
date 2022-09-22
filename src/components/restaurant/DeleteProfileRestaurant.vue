@@ -7,7 +7,7 @@
       <button @click="delete_profile">Delete</button>
     </div>
 
-    <div v-if="log_in_token_restaurant === null">
+    <div v-if="restaurant_token === null">
       <h2>You must log in first.</h2>
       <router-link to="/login-restaurant">Log In</router-link>
     </div>
@@ -20,12 +20,12 @@ import axios from "axios";
 export default {
   data() {
     return {
-      log_in_token_restaurant: null,
+      restaurant_token: null,
     };
   },
   mounted() {
     /* on mounted get the token cookie value */
-    this.log_in_token_restaurant = cookies.get(`log_in_token_restaurant`);
+    this.restaurant_token = cookies.get(`restaurant_token`);
   },
 
   methods: {
@@ -36,7 +36,7 @@ export default {
           url: `https://innotechfoodie.ml/api/restaurant`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token_restaurant`)}`,
+            token: `${cookies.get(`restaurant_token`)}`,
           },
           method: `DELETE`,
           data: {

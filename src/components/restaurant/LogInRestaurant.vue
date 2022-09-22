@@ -37,7 +37,7 @@ export default {
           /* on success set the restaurant id as a cookie */
           cookies.set(`restaurant_id`, `${response[`data`][`restaurantId`]}`);
           /* set the restaurant log in token as a cookie */
-          cookies.set(`log_in_token_restaurant`, response[`data`][`token`]);
+          cookies.set(`restaurant_token`, response[`data`][`token`]);
           /* pushes the user to the dashboard page */
           this.$router.push(`/dashboard-restaurant`);
         })
@@ -56,7 +56,7 @@ export default {
   },
   mounted() {
     /* on mounted get the sign in token cookie value */
-    this.sign_in_token = cookies.get(`sign_in_token_restaurant`);
+    this.sign_in_token = cookies.get(`restaurant_token`);
   },
 };
 </script>

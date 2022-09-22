@@ -6,7 +6,7 @@
       <input type="text" placeholder="password" ref="password" />
       <button @click="delete_profile">Delete</button>
     </div>
-    <div v-if="log_in_token === null">
+    <div v-if="customer_token === null">
       <h2>You must log in first.</h2>
       <router-link to="/login">Log In</router-link>
     </div>
@@ -21,12 +21,12 @@ export default {
   data() {
     return {
       /* setting log_in_token to null */
-      log_in_token: null
+      customer_token: null
     }
   },
   mounted() {
     /* on mounted getting the cookie value of log_in_token */
-    this.log_in_token = cookies.get(`log_in_token`);
+    this.customer_token = cookies.get(`customer_token`);
   },
 
   methods: {
@@ -36,7 +36,7 @@ export default {
             url: `https://innotechfoodie.ml/api/client`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`log_in_token`)}`,
+            token: `${cookies.get(`customer_token`)}`,
           },
           method: `DELETE`,
           data: {
@@ -46,12 +46,10 @@ export default {
           /* at response alert to the user a success message */
             response
             alert(`You have successfully deleted your profile`);
-            /* remove the sign in token */
-            cookies.remove(`sign_in_token`);
-            /* remove the log in token */
-            cookies.remove(`log_in_token`);
+            /* remove the token */
+            cookies.remove(`customer_token`);
             /* leave the user to sign up page */
-            this.$router.push(`/signup`);
+            this.$router.push(`/`);
         }).catch((error) => {
             error
             /* if error show a message */

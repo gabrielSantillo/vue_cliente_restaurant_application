@@ -39,7 +39,7 @@ export default {
         url: `https://innotechfoodie.ml/api/client`,
         headers: {
           "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-          token: `${cookies.get(`sign_in_token`)}`,
+          token: `${cookies.get(`customer_token`)}`,
         },
         params: {
           client_id: parseInt(cookies.get("client_id")),
@@ -102,7 +102,7 @@ export default {
           url: `https://innotechfoodie.ml/api/client`,
           headers: {
             "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
-            token: `${cookies.get(`sign_in_token`)}`,
+            token: `${cookies.get(`customer_token`)}`,
           },
           method: `PATCH`,
           /* sending this data to update */

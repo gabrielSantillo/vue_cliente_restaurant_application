@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div v-if="log_in_token === null && sign_in_token === null">
+    <div v-if="restaurant_token === null">
       <h2>It seems you are not logged in. Log up first.</h2>
       <router-link to="/login-restaurant">Sign Up</router-link>
     </div>
@@ -26,20 +26,18 @@ import cookies from "vue-cookies";
 export default {
   data() {
     return {
-      log_in_token: null,
-      sign_up_token: null,
+      restaurant_token: null,
     };
   },
   mounted() {
     /* on mounted get the token cookie value */
-    this.log_in_token = cookies.get(`log_in_token_restaurant`);
-    this.sign_up_token = cookies.get(`sign_in_token_restaurant`);
+    this.restaurant_token = cookies.get(`restaurant_token`);
   },
 
   methods: {
     /* this function log the restaurant user out and leave the user in home page */
     log_out_function() {
-      cookies.remove(`log_in_token_restaurant`);
+      cookies.remove(`restaurant_token`);
       this.$router.push(`/`);
     },
   },
