@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="menu_card">
-      <div v-for="food in foods" :key="food[`id`]">
+      <div v-for="(food, index) in foods" :key="index">
         <img :src="food[`image_url`]" alt="" />
         <h4>{{ food[`name`] }}</h4>
         <p>{{ food[`description`] }}</p>
