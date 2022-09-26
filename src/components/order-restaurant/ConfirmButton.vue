@@ -1,56 +1,25 @@
 <template>
   <div>
-    <div class="header">
-      <h1>Orders</h1>
-      <router-link to="dashboard-restaurant">Dashboard</router-link>
-    </div>
-
-    <div class="red_line"></div>
-
-    <confirm-button></confirm-button>
-
-    <div class="green_line"></div>
-
     <div class="orders">
       <section
-        v-for="order in is_not_completed"
+        v-for="order in is_not_confirmed"
         :key="order[`order_id`]"
-        class="orders_card green"
+        class="orders_card red"
       >
         <h3>Item: {{ order[`name`] }}</h3>
         <h4>CAD$ {{ order[`price`] }}</h4>
-        <button @click="complete_order(order, $event)">Complete</button>
+        <button @click="confirm_order(order, $event)">Confirm</button>
       </section>
-    </div>
-
-    <div class="gray_line"></div>
-
-    <div class="orders" v-if="orders.length >= 1">
-      <section
-        v-for="order in is_completed"
-        :key="order[`order_id`]"
-        class="orders_card gray"
-      >
-        <h3>Item: {{ order[`name`] }}</h3>
-        <h4>CAD$ {{ order[`price`] }}</h4>
-      </section>
-    </div>
-
-    <div v-else>
-      <h1>You have no orders yet.</h1>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import cookies from "vue-cookies";
-import ConfirmButton from './ConfirmButton.vue';
+import axios from "axios"
+import cookies from "vue-cookies"
 export default {
-  components: { ConfirmButton },
   methods: {
-    /* this function update the value of is_complete to true */
-    complete_order(order) {
+    confirm_order(order) {
       /* axios request to the restaurant-order API */
       axios
         .request({
@@ -60,24 +29,23 @@ export default {
             token: `${cookies.get(`restaurant_token`)}`,
           },
           method: `PATCH`,
-          /* the data that update the variable is_complete */
+          /* the data that update the variable is_confirmed */
           data: {
             order_id: order[`order_id`],
-            is_complete: "true",
+            is_confirmed: "true",
           },
         })
         .then((response) => {
-          /* on success, reload the page */
           response;
+          /* on success, reload the page */
           location.reload();
         })
         .catch((error) => {
           error;
-          /* on failure show a message */
+          /* on faiure show a message */
           alert(`Sorry an error have occured. Please, refresh the page`);
         });
     },
-
   },
   data() {
     return {
@@ -89,6 +57,7 @@ export default {
       is_not_completed: [],
     };
   },
+
   mounted() {
     /* on mounted axios request to the restaurant order API */
     axios
@@ -108,32 +77,11 @@ export default {
           if (this.orders[i][`is_confirmed`] === 0) {
             /* if yes, push this order to is not confirmed variable */
             this.is_not_confirmed.push(this.orders[i]);
-          } else if (
-            /* if is confirmed but not completed */
-            this.orders[i][`is_confirmed`] === 1 &&
-            this.orders[i][`is_complete`] === 0
-          ) {
-            /* push to the order to not completed variable */
-            this.is_not_completed.push(this.orders[i]);
-          } else if (
-            /* if is confirmed and complete */
-            this.orders[i][`is_confirmed`] === 1 &&
-            this.orders[i][`is_complete`] === 1
-          ) {
-            /* push to the is completd variable */
-            this.is_completed.push(this.orders[i]);
           }
         }
-
-        /* sorting the order */
-        this.orders.sort(function (a, b) {
-          if (a.order_id > b.order_id) {
-            return -1;
-          } else {
-            return true;
-          }
-        });
-
+        for (let i = 0; i < this.is_not_confirmed.length; i++) {
+          console.log(this.is_not_confirmed[i][`order_id`]);
+        }
       })
       .catch((error) => {
         /* on failure show a message */
@@ -145,12 +93,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  place-items: center;
-}
-
 .orders {
   display: grid;
   place-items: center;
@@ -191,31 +133,5 @@ export default {
 
 .red {
   border-left: 3px solid #ad1839;
-}
-
-.green {
-  border-left: 3px solid #409c1f;
-}
-
-.gray {
-  border-left: 3px solid gray;
-}
-
-.red_line {
-  width: 100%;
-  background: #ad1839;
-  height: 2px;
-}
-
-.green_line {
-  width: 100%;
-  background: #409c1f;
-  height: 2px;
-}
-
-.gray_line {
-  width: 100%;
-  background: gray;
-  height: 2px;
 }
 </style>
