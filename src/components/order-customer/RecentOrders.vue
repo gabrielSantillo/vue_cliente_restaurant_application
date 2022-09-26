@@ -25,10 +25,6 @@ export default {
     return {
       /* these variables are expecting to be setted */
       recent_orders: [],
-      old_orders: [],
-      show_old_orders: false,
-      orders_id_array: [],
-      past_orders_by_id: {},
     };
   },
   mounted() {
@@ -52,10 +48,7 @@ export default {
             if (response[`data`][j][`order_id`] === orders_id[i]) {
               /* if yes, push the food to the recent_orders varaible at the API response */
               this.recent_orders.push(response[`data`][j]);
-            } else {
-              /* if not, push the food to the old_orders */
-              this.old_orders.push(response[`data`][j]);
-            }
+            } 
           }
         }
       })
