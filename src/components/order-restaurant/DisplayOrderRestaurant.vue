@@ -11,17 +11,7 @@
 
     <div class="green_line"></div>
 
-    <div class="orders">
-      <section
-        v-for="order in is_not_completed"
-        :key="order[`order_id`]"
-        class="orders_card green"
-      >
-        <h3>Item: {{ order[`name`] }}</h3>
-        <h4>CAD$ {{ order[`price`] }}</h4>
-        <button @click="complete_order(order, $event)">Complete</button>
-      </section>
-    </div>
+    <complete-button></complete-button>
 
     <div class="gray_line"></div>
 
@@ -46,8 +36,9 @@
 import axios from "axios";
 import cookies from "vue-cookies";
 import ConfirmButton from './ConfirmButton.vue';
+import CompleteButton from './CompleteButton.vue';
 export default {
-  components: { ConfirmButton },
+  components: { ConfirmButton, CompleteButton },
   methods: {
     /* this function update the value of is_complete to true */
     complete_order(order) {
