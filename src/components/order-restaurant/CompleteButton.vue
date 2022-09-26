@@ -36,9 +36,7 @@ export default {
           },
         })
         .then((response) => {
-          /* on success, reload the page */
           response;
-          location.reload();
         })
         .catch((error) => {
           error;
