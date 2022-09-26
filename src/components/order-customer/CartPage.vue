@@ -13,6 +13,7 @@
 
 <script>
 import cookies from "vue-cookies";
+import axios from "axios";
 export default {
   methods: {
     /* this function deletes the item in the cart */
@@ -39,12 +40,46 @@ export default {
     let foods_json = cookies.get(`cart`);
     /* set the variable with the cart value */
     this.foods = JSON.parse(foods_json);
+
+    axios
+      .request({
+        url: `https://innotechfoodie.ml/api/client-order`,
+        headers: {
+          "x-api-key": `RevyoqeHMCwaqRcUfmDC`,
+          token: `${cookies.get(`customer_token`)}`,
+        },
+      })
+      .then((response) => {
+        /* on success get the cookie with the order id value */
+        let orders_id = JSON.parse(cookies.get(`orders_id`));
+        /* loop through orders id length */
+        for (let i = 0; i < orders_id.length; i++) {
+          /* loop through the API response at data */
+          for (let j = 0; j < response[`data`].length; j++) {
+            /* checks if the order id in the api is equal the cookie order id */
+            if (response[`data`][j][`order_id`] === orders_id[i]) {
+              /* if yes, push the food to the recent_orders varaible at the API response */
+              this.recent_orders.push(response[`data`][j]);
+            }
+          }
+        }
+
+        if (this.recent_orders[0][`is_complete`] === 1) {
+          cookies.remove(`cart`);
+        }
+      })
+      .catch((error) => {
+        error;
+        /* on failure show a message */
+        alert(`Sorry, something went wrong. Try again.`);
+      });
   },
 
   data() {
     return {
       /* data waiting to be setted */
       foods: undefined,
+      recent_orders: [],
     };
   },
 };

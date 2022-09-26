@@ -42,7 +42,7 @@ export default {
   },
 
   mounted() {
-    /* ou mounted axios request to the client-order API */
+    /* on mounted axios request to the client-order API */
     axios
       .request({
         url: `https://innotechfoodie.ml/api/client-order`,

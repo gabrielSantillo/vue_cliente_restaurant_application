@@ -5,6 +5,9 @@
       <div>
         <button @click="make_order(foods, $event)">Order</button>
       </div>
+      <div>
+        <button @click="order_status()">Status</button>
+      </div>
     </div>
     <div class="line"></div>
     <h1>Cart</h1>
@@ -33,6 +36,9 @@ export default {
     this.foods = JSON.parse(foods_json);
   },
   methods: {
+    order_status(){
+      this.$router.push(`/order-status`);
+    },
     /* this function makes the order */
     make_order() {
       let menu_items_id = [];
@@ -78,7 +84,7 @@ export default {
 .header {
   display: grid;
   place-items: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   margin-top: 20px;
 
   > div {
@@ -89,7 +95,7 @@ export default {
       background: #13542d;
       color: white;
       padding: 10px;
-      width: 120px;
+      width: 80px;
       border-radius: 5px;
     }
 
