@@ -32,6 +32,7 @@ export default {
         }
         /* add the food that was just clicked to be added */
         this.cart.push(food);
+        alert("Item added to cart.")
       }
 
       /* transform the array in a JSON */
