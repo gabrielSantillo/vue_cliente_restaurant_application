@@ -5,20 +5,7 @@
       <router-link to="/menu">Menu</router-link>
     </div>
 
-    <section class="orders_div">
-      <div
-        v-for="order in recent_orders"
-        :key="order[`order_id`]"
-        class="card green"
-      >
-        <h3>{{ order[`name`] }}</h3>
-        <p>CAD$ {{ order[`price`] }}</p>
-        <h4 v-if="order[`is_confirmed`] === 0">Not confirmed</h4>
-        <h4 v-else>Confirmed</h4>
-        <h4 v-if="order[`is_complete`] === 0">Not completed</h4>
-        <h4 v-else>Completed</h4>
-      </div>
-    </section>
+    <recent-orders></recent-orders>
 
     <div class="order_history">
       <button @click="display_old_orders">Order History</button>
@@ -51,7 +38,9 @@
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
+import RecentOrders from './RecentOrders.vue';
 export default {
+  components: { RecentOrders },
   methods: {
     /* this function set the variable to true */
     display_old_orders() {
@@ -119,7 +108,7 @@ export default {
         for (let i = 0; i < this.orders_id_array.length; i++) {
           this.past_orders_by_id[this.orders_id_array[i]] = [];
         }
-        
+
         /* for loop that through the orders id array */
         for (let i = 0; i < this.orders_id_array.length; i++) {
           /* for loop through old orders */
@@ -137,7 +126,7 @@ export default {
       .catch((error) => {
         error;
         /* on failure show a message */
-        alert(`Sorry, something went wrong. Try again.`)
+        alert(`Sorry, something went wrong. Try again.`);
       });
   },
 };
