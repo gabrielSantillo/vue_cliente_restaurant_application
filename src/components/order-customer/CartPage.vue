@@ -39,8 +39,6 @@ export default {
     let foods_json = cookies.get(`cart`);
     /* set the variable with the cart value */
     this.foods = JSON.parse(foods_json);
-
-    
   },
 
   data() {
