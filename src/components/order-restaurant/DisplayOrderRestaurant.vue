@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import ConfirmButton from "./ConfirmButton.vue";
-import CompleteButton from "./CompleteButton.vue";
+import ConfirmButton from "./DisplayOrdersToBeConfirmed.vue";
+import CompleteButton from "./DisplayOrdersToBeCompleted.vue";
 import OrderHistory from "./OrderHistory.vue";
 export default {
   components: { ConfirmButton, CompleteButton, OrderHistory },
